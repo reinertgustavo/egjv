@@ -1,0 +1,15 @@
+{
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:55592/",
+      "sslPort": 0
+    }
+  },
+  "profiles": {
+    "SmartGarcom": {
+      "commandName": "IISExpress"
+    }
+  }
+}
