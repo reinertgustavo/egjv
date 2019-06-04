@@ -1,23 +1,30 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129302941-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-129302941-1');
+    </script>
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - SmartGarcom</title>
-
-    <environment include="Development">
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-        <link rel="stylesheet" href="~/css/site.css" />
-    </environment>
-    <environment exclude="Development">
-        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
-              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
-    </environment>
+    <link rel="icon" href="~/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/css/navbarpublic.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <script src="https://d1jgln4w9al398.cloudfront.net/site/2.1.238-20181108.27/js/min/library-default.js" type="text/javascript"></script>
+    <script src="https://d1jgln4w9al398.cloudfront.net/site/2.1.238-20181108.27/js/min/functions-home.js" type="text/javascript"></script>
+    @RenderSection("CSS", required: false)
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -26,34 +33,73 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">SmartGarcom</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">SmartGarçom</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Início</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    @if (ViewBag.TUser == null)
+                    {
+                        <li><a asp-controller="Auth" asp-action="Login">Login</a> </li>
+                    }
+                    else
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@ViewBag.TUser.Name <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                @if (ViewBag.TUser != null && ViewBag.TUser.Role.RoleId == 1 || ViewBag.TUser.Role.RoleId == 2)
+                                {
+                                    <li><a asp-area="Admin" asp-controller="Home" asp-action="Index">Administração</a></li>
+                                }
+                                <li><a asp-controller="Auth" asp-action="Logout">Sair</a> </li>
+                            </ul>
+                        </li>
+                    }
                 </ul>
             </div>
         </div>
     </nav>
 
     <partial name="_CookieConsentPartial" />
+    @RenderBody()
+    <footer class="footer">
+        <div class="container no-padd">
+            <div class="clearfix">
+                <div id="text-9" class="col-xs-12 col-sm-6 col-md-3 pull-left">
+                    <div class="item-wrap">
+                        <h5>follow us on</h5>			<div class="textwidget">
+                            <p>
+                                <a href="https://www.facebook.com/" target="_blank" rel="noopener"><img src="~/images/face-300x300.png" alt="" width="33" height="33"></a>
+                                &nbsp;
+                                <a href="https://www.linkedin.com/" target="_blank" rel="noopener"><img src="~/images/linkedin.png" alt="" width="32" height="32"></a>
+                                &nbsp;
+                                <a href="https://www.twitter.com/" target="_blank" rel="noopener"><img src="~/images/tt-150x150.png" alt="" width="30" height="30"></a>
+                                &nbsp;
+                                <a href="http://www.instagram.com/"><img src="~/images/insta-150x150.png" alt="" width="33" height="33"></a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-3 pull-right">
+                    <div class="item-wrap">
+                        <h5>fale conosco</h5>			<div class="textwidget">
+                            <p><a href="mailto:contato@smartgarcom.com">contato@smartgarcom.com</a></p>
+                            <p><a href="tel:(+5547) 99635.9866">(47) 9 9635.9866</a></p>
+                            <p>Rua Augusto Rocha da Silva 226</p>
+                        </div>
+                    </div>
+                </div>
+                <p class="col-md-8 pull-left" style="padding-top:20px;">© SmartGarcom 2018 - Todos os direitos reservados</p>
+            </div>
 
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2018 - SmartGarcom</p>
-        </footer>
-    </div>
 
-    <environment include="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
-    </environment>
-    <environment exclude="Development">
+
+
+        </div>
+    </footer>
+
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
                 asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
                 asp-fallback-test="window.jQuery"
@@ -66,9 +112,8 @@
                 crossorigin="anonymous"
                 integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
         </script>
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
-    </environment>
-
+        <script src="~/js/site.min.js" ></script>
+    <script src="http://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

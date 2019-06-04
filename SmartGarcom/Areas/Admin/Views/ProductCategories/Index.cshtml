@@ -1,0 +1,45 @@
+﻿@model List<SmartGarcom.Models.ProductCategory>
+@{
+    ViewData["Title"] = "Categorias";
+    ViewData["Controller"] = "ProductCategories";
+    ViewData["Action"] = "Create";
+    ViewData["NomeBtn"] = "Criar Categoria";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <table class="table table-striped table-bordered dt-responsive nowrap display" id="dataTables-data">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    @if (ViewBag.TUser.Role.RoleId == 1)
+                    {
+                        <th>Empresa</th>
+                    }
+                    <th class="text-center" width="10%"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var category in Model)
+                {
+                    <tr>
+                        <td class="text-center">@category.ProductCategoryId</td>
+                        <td>@category.Name</td>
+                        <td>@category.Description</td>
+                        @if (ViewBag.TUser.Role.RoleId == 1)
+                        {
+                            <td>@category.Company.Name</td>
+                        }
+                        <td width="10%">
+                            <a class="btn btn-primary glyphicon glyphicon-pencil" asp-area="Admin" asp-controller="ProductCategories" asp-action="Edit" asp-route-id="@category.ProductCategoryId"></a>
+                            <a class="btn btn-danger glyphicon glyphicon-trash" asp-area="Admin" asp-controller="ProductCategories" asp-action="Delete" asp-route-id="@category.ProductCategoryId"></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- /.row -->

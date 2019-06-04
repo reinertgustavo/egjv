@@ -1,0 +1,107 @@
+﻿@model SmartGarcom.ViewModels.CommonVM
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+@section CSS{
+    <link rel="stylesheet" href="~/css/Home.css" />
+    <link href="~/css/Login.css" rel="stylesheet" />
+}
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<body>
+    <div class="content container">
+        <div class="row loginBox">
+            <div class="col-md-5 col-md-offset-3 mx-auto">
+                <div id="first">
+                    <div class="myform form ">
+                        <div class="logo mb-3">
+                            <div class="col-md-12 text-center">
+                                <h1>Login</h1>
+                            </div>
+                            <form asp-action="Login" asp-controller="Auth" method="post">
+                                <div class="form-group">
+                                    <label asp-for="Loginvm.Email">Endereço de e-mail</label>
+                                    <input class="form-control" placeholder="Insira seu endereço de e-mail" name="Loginvm.Email" type="email" autofocus asp-for="Loginvm.Email" id="email" aria-describedby="emailHelp">
+                                    <span class="text-danger" asp-validation-for="Loginvm.Email"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Loginvm.Password">Senha</label>
+                                    <input class="form-control" placeholder="Insira sua senha" name="Loginvm.password" type="password" value="" asp-for="Loginvm.Password" id="password" aria-describedby="emailHelp">
+                                    <span class="text-danger" asp-validation-for="Loginvm.Password"></span>
+                                </div>
+                                <div class="form-group">
+                                    <p class="text-center">Cadastrando-se você concorda com nossos <a href="#">Termos de Uso</a></p>
+                                </div>
+                                <div class="col-md-12 text-center ">
+                                    <button type="submit" class="btn btn-block mybtn btn-primary tx-tfm">Entrar</button>
+                                </div>
+                                <div class="col-md-12 ">
+                                    <div class="login-or">
+                                        <hr class="hr-or">
+                                        <span class="span-or">ou</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <p class="text-center">Não possui conta? <a href="#" id="signup">Cadastre-se aqui</a></p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    </div>
+                    <div id="second">
+                        <div class="myform form ">
+                            <div class="logo mb-3">
+                                <div class="col-md-12 text-center">
+                                    <h1>Cadastro</h1>
+                                </div>
+                            </div>
+                            <form asp-action="SignUp" asp-controller="Auth" method="post" name="registration">
+                                 <div class="form-group">
+                                   <label asp-for="SignUpvm.Name">Nome</label>
+                                   <input type="text" name="SignUpvm.Name" asp-for="SignUpvm.Name" class="form-control" id="firstname" aria-describedby="emailHelp" placeholder="Digite seu nome">
+                                   <span class="text-danger" asp-validation-for="SignUpvm.Name"></span>
+                                 </div>
+      
+                                <div class="form-group">
+                                    <label asp-for="SignUpvm.Email">Endereço de e-mail</label>
+                                    <input type="email" name="SignUpvm.Email" asp-for="SignUpvm.Email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Digite o seu endereço de e-mail">
+                                    <span class="text-danger" asp-validation-for="SignUpvm.Email"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="SignUpvm.Password">Senha</label>
+                                    <input type="password" name="SignUpvm.Password" asp-for="SignUpvm.Password" id="password" class="form-control" aria-describedby="emailHelp" placeholder="Digite sua senha">
+                                    <span class="text-danger" asp-validation-for="SignUpvm.Password"></span>
+                                </div>
+                                     <div class="form-group">
+                                        <label asp-for="SignUpvm.PasswordConfirm">Confirmação de senha</label>
+                                        <input type="password" name="SignUpvm.passwordConfirm" asp-for="SignUpvm.PasswordConfirm" id="password" class="form-control" aria-describedby="emailHelp" placeholder="Digite novamente a sua senha">
+                                        <span class="text-danger" asp-validation-for="SignUpvm.PasswordConfirm"></span>
+                                    </div>
+                                  
+                                    <div class="col-md-12 text-center mb-3">
+                                        <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm">Cadastrar-se gratuitamente</button>
+                                    </div>
+                                    <div class="col-md-12 ">
+                                        <div class="form-group">
+                                            <p class="text-center"><a href="#" id="signin">Já possui uma conta? Faça login aqui</a></p>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </body>
+    <!--Scripts-->
+                                <script src="~/js/Login.js"></script>
+                                <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+                                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+                                <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>-->
+                                <!-- MetisMenus -->
+                                <script src="https://cdn.jsdelivr.net/npm/jquery"></script>
+                                <script src="https://cdn.jsdelivr.net/npm/metismenu"></script>

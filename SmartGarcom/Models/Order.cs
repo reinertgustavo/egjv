@@ -7,6 +7,11 @@ namespace SmartGarcom.Models
 {
     public class Order
     {
-        public long Id{ get; set; }
+        public long OrderId{ get; set; }
+
+        public virtual OrderCard OrderCard { get; set; }
+
+        public virtual Status Status { get; set; }
+
     }
 }

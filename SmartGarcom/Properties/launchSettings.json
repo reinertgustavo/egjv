@@ -3,13 +3,17 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:55592/",
+      "applicationUrl": "http://localhost:30000/",
       "sslPort": 0
     }
   },
   "profiles": {
     "SmartGarcom": {
-      "commandName": "IISExpress"
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
     }
   }
 }

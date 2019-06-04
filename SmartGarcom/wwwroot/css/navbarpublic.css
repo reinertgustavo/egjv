@@ -1,0 +1,15 @@
+﻿body {
+}
+
+.navbar-default {
+    background-color: #FFD11D;
+    border-color: #ddb411;
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: black;
+}
+
+.navbar-default .navbar-brand {
+    color: black;
+}

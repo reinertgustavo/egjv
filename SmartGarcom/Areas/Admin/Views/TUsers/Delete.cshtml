@@ -1,0 +1,23 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model SmartGarcom.Models.TUser
+
+@{
+    ViewData["Title"] = "Excluir usuário";
+}
+<p>Você deseja mesmo excluir o usuário @Model.Name ?</p>
+<form asp-controller="TUsers" asp-action="Delete" method="post">
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <a asp-area="Admin"
+               asp-controller="TUsers"
+               asp-action="Index"
+               class="btn btn-default">Cancelar</a>
+            <button type="submit"
+                    class="btn btn-danger">
+                Apagar
+            </button>
+        </div>
+    </div>
+</form>
