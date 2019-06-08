@@ -10,14 +10,14 @@ using SmartGarcom.Models;
 namespace SmartGarcom.Migrations
 {
     [DbContext(typeof(Banco))]
-    [Migration("20181126213841_teste1")]
-    partial class teste1
+    [Migration("20190608021102_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
+                .HasAnnotation("ProductVersion", "2.1.11-servicing-32099")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -33,6 +33,10 @@ namespace SmartGarcom.Migrations
                         .IsRequired();
 
                     b.Property<string>("CommercialNumber");
+
+                    b.Property<string>("ImagePath");
+
+                    b.Property<bool>("IsDeleted");
 
                     b.Property<string>("Name")
                         .IsRequired();
@@ -126,19 +130,19 @@ namespace SmartGarcom.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long?>("CompanyId");
+                    b.Property<long>("CompanyId");
 
                     b.Property<string>("Description");
 
                     b.Property<string>("ImagePath");
 
-                    b.Property<string>("IsActive");
+                    b.Property<bool>("IsDeleted");
 
                     b.Property<string>("Name");
 
                     b.Property<double>("Price");
 
-                    b.Property<long?>("ProductCategoryId");
+                    b.Property<long>("ProductCategoryId");
 
                     b.HasKey("ProductId");
 
@@ -155,11 +159,13 @@ namespace SmartGarcom.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long?>("CompanyId");
+                    b.Property<long>("CompanyId");
 
                     b.Property<string>("Description");
 
                     b.Property<string>("ImagePath");
+
+                    b.Property<bool>("IsDeleted");
 
                     b.Property<string>("Name");
 
@@ -208,6 +214,8 @@ namespace SmartGarcom.Migrations
 
                     b.Property<long?>("CompanyId");
 
+                    b.Property<bool>("IsDeleted");
+
                     b.Property<string>("Number");
 
                     b.Property<string>("QRCode");
@@ -235,6 +243,8 @@ namespace SmartGarcom.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired();
+
+                    b.Property<bool>("IsDeleted");
 
                     b.Property<string>("Name")
                         .IsRequired();
@@ -293,31 +303,33 @@ namespace SmartGarcom.Migrations
                 {
                     b.HasOne("SmartGarcom.Models.Company", "Company")
                         .WithMany("Products")
-                        .HasForeignKey("CompanyId");
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SmartGarcom.Models.ProductCategory", "ProductCategory")
-                        .WithMany()
-                        .HasForeignKey("ProductCategoryId");
+                        .WithMany("Products")
+                        .HasForeignKey("ProductCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("SmartGarcom.Models.ProductCategory", b =>
                 {
                     b.HasOne("SmartGarcom.Models.Company", "Company")
-                        .WithMany()
+                        .WithMany("ProductCategories")
                         .HasForeignKey("CompanyId");
                 });
 
             modelBuilder.Entity("SmartGarcom.Models.Table", b =>
                 {
                     b.HasOne("SmartGarcom.Models.Company", "Company")
-                        .WithMany()
+                        .WithMany("Tables")
                         .HasForeignKey("CompanyId");
                 });
 
             modelBuilder.Entity("SmartGarcom.Models.TUser", b =>
                 {
                     b.HasOne("SmartGarcom.Models.Company", "Company")
-                        .WithMany()
+                        .WithMany("Users")
                         .HasForeignKey("CompanyId");
 
                     b.HasOne("SmartGarcom.Models.Role", "Role")

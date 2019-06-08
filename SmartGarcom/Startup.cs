@@ -37,10 +37,10 @@ namespace SmartGarcom
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             // Conexão Remota com o Banco
-            var connection = @"Server=smartdb.cttfuaqpus95.us-east-1.rds.amazonaws.com;Database=SmartGarcomDB;Trusted_Connection=False;ConnectRetryCount=0;Persist Security Info=False;User ID=usr_smart;Password=Smart!!2018;";
+            //var connection = @"Server=smartdb.cttfuaqpus95.us-east-1.rds.amazonaws.com;Database=SmartGarcomDB;Trusted_Connection=False;ConnectRetryCount=0;Persist Security Info=False;User ID=usr_smart;Password=Smart!!2018;";
             //var connection = @"Server=localhost;Database=SmartGarcomDB;Trusted_Connection=False;ConnectRetryCount=0;Persist Security Info=False;User ID=SA;Password=Smart@2018;";
             //Conexão Local com o Banco 
-        //      var connection = @"Server=(localdb)\mssqllocaldb;Database=SmartGarcomDB;Trusted_Connection=True;ConnectRetryCount=0";
+            var connection = @"Server=(localdb)\mssqllocaldb;Database=SmartGarcomDB;Trusted_Connection=True;ConnectRetryCount=0";
             services.AddDbContext<Banco>
                 (options => options.UseSqlServer(connection));
 

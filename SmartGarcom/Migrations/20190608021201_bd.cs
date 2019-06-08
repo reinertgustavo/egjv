@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SmartGarcom.Migrations
 {
-    public partial class Init : Migration
+    public partial class bd : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -23,7 +23,9 @@ namespace SmartGarcom.Migrations
                     City = table.Column<string>(nullable: true),
                     Neighborhood = table.Column<string>(nullable: true),
                     StreetAddress = table.Column<string>(nullable: true),
-                    StreetNumber = table.Column<string>(nullable: true)
+                    StreetNumber = table.Column<string>(nullable: true),
+                    ImagePath = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -64,9 +66,11 @@ namespace SmartGarcom.Migrations
                 {
                     ProductCategoryId = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CompanyId = table.Column<long>(nullable: true),
+                    CompanyId = table.Column<long>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true)
+                    Description = table.Column<string>(nullable: true),
+                    ImagePath = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -87,7 +91,8 @@ namespace SmartGarcom.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CompanyId = table.Column<long>(nullable: true),
                     Number = table.Column<string>(nullable: true),
-                    QRCode = table.Column<string>(nullable: true)
+                    QRCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -107,12 +112,14 @@ namespace SmartGarcom.Migrations
                     TUserId = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     AuthToken = table.Column<string>(nullable: true),
+                    CPF = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: false),
                     Birthdate = table.Column<DateTime>(nullable: false),
                     Password = table.Column<string>(nullable: true),
                     CompanyId = table.Column<long>(nullable: true),
-                    RoleId = table.Column<long>(nullable: true)
+                    RoleId = table.Column<long>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -137,13 +144,13 @@ namespace SmartGarcom.Migrations
                 {
                     ProductId = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CompanyId = table.Column<long>(nullable: true),
-                    ProductCategoryId = table.Column<long>(nullable: true),
+                    CompanyId = table.Column<long>(nullable: false),
+                    ProductCategoryId = table.Column<long>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     Price = table.Column<double>(nullable: false),
                     ImagePath = table.Column<string>(nullable: true),
-                    Active = table.Column<string>(nullable: true)
+                    IsDeleted = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -153,23 +160,25 @@ namespace SmartGarcom.Migrations
                         column: x => x.CompanyId,
                         principalTable: "Companies",
                         principalColumn: "CompanyId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Products_ProductCategories_ProductCategoryId",
                         column: x => x.ProductCategoryId,
                         principalTable: "ProductCategories",
                         principalColumn: "ProductCategoryId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "OrderCards",
                 columns: table => new
                 {
+                    orderCardToken = table.Column<string>(nullable: true),
                     OrderCardId = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CompanyId = table.Column<long>(nullable: true),
-                    TableId = table.Column<long>(nullable: true)
+                    TableId = table.Column<long>(nullable: true),
+                    UserTUserId = table.Column<long>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -185,6 +194,12 @@ namespace SmartGarcom.Migrations
                         column: x => x.TableId,
                         principalTable: "Tables",
                         principalColumn: "TableId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_OrderCards_TUsers_UserTUserId",
+                        column: x => x.UserTUserId,
+                        principalTable: "TUsers",
+                        principalColumn: "TUserId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -252,6 +267,11 @@ namespace SmartGarcom.Migrations
                 column: "TableId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_OrderCards_UserTUserId",
+                table: "OrderCards",
+                column: "UserTUserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_OrderProducts_OrderId",
                 table: "OrderProducts",
                 column: "OrderId");
@@ -308,16 +328,10 @@ namespace SmartGarcom.Migrations
                 name: "OrderProducts");
 
             migrationBuilder.DropTable(
-                name: "TUsers");
-
-            migrationBuilder.DropTable(
                 name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "Products");
-
-            migrationBuilder.DropTable(
-                name: "Roles");
 
             migrationBuilder.DropTable(
                 name: "OrderCards");
@@ -332,7 +346,13 @@ namespace SmartGarcom.Migrations
                 name: "Tables");
 
             migrationBuilder.DropTable(
+                name: "TUsers");
+
+            migrationBuilder.DropTable(
                 name: "Companies");
+
+            migrationBuilder.DropTable(
+                name: "Roles");
         }
     }
 }

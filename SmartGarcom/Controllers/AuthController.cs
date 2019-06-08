@@ -19,9 +19,18 @@ namespace SmartGarcom.Controllers
                 if (this.db.Roles.Count() == 0)
                 {
                     Role role = new Role();
-                    role.Name = "Administrador";
+                    role.Name = "Administrador Geral";
                     role.Description = "Administrador Geral do Sistemas";
                     db.Roles.Add(role);
+                    Role role2 = new Role();
+                    role2.Name = "Administrador da empresa";
+                    role2.Description = "Administrador geral da empresa";
+                    db.Roles.Add(role2);
+                    Role role3 = new Role();
+                    role3.Name = "Usuário";
+                    role3.Description = "Usuário comum do sistema";
+                    db.Roles.Add(role3);
+
                     db.SaveChanges();
                 }
                 if (this.db.Companies.Count() == 0)

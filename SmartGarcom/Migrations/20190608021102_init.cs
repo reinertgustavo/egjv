@@ -2,7 +2,7 @@
 
 namespace SmartGarcom.Migrations
 {
-    public partial class AdicionaRoles : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

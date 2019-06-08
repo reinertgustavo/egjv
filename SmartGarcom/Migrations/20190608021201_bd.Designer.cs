@@ -10,14 +10,14 @@ using SmartGarcom.Models;
 namespace SmartGarcom.Migrations
 {
     [DbContext(typeof(Banco))]
-    [Migration("20181130145948_DbTeste")]
-    partial class DbTeste
+    [Migration("20190608021201_bd")]
+    partial class bd
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
+                .HasAnnotation("ProductVersion", "2.1.11-servicing-32099")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -33,6 +33,8 @@ namespace SmartGarcom.Migrations
                         .IsRequired();
 
                     b.Property<string>("CommercialNumber");
+
+                    b.Property<string>("ImagePath");
 
                     b.Property<bool>("IsDeleted");
 
@@ -128,7 +130,7 @@ namespace SmartGarcom.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long?>("CompanyId");
+                    b.Property<long>("CompanyId");
 
                     b.Property<string>("Description");
 
@@ -140,13 +142,13 @@ namespace SmartGarcom.Migrations
 
                     b.Property<double>("Price");
 
-                    b.Property<long>("ProductCategoryFk");
+                    b.Property<long>("ProductCategoryId");
 
                     b.HasKey("ProductId");
 
                     b.HasIndex("CompanyId");
 
-                    b.HasIndex("ProductCategoryFk");
+                    b.HasIndex("ProductCategoryId");
 
                     b.ToTable("Products");
                 });
@@ -157,7 +159,7 @@ namespace SmartGarcom.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long?>("CompanyId");
+                    b.Property<long>("CompanyId");
 
                     b.Property<string>("Description");
 
@@ -301,11 +303,12 @@ namespace SmartGarcom.Migrations
                 {
                     b.HasOne("SmartGarcom.Models.Company", "Company")
                         .WithMany("Products")
-                        .HasForeignKey("CompanyId");
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SmartGarcom.Models.ProductCategory", "ProductCategory")
                         .WithMany("Products")
-                        .HasForeignKey("ProductCategoryFk")
+                        .HasForeignKey("ProductCategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
