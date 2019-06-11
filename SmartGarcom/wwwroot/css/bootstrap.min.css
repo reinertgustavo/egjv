@@ -4867,12 +4867,12 @@ select[multiple].input-group-sm > .form-control, select[multiple].input-group-sm
 }
 
 .navbar-default {
-    background-color: #f8f8f8;
-    border-color: #e7e7e7
+    background-color: #333;
+    border-color: #333
 }
 
     .navbar-default .navbar-brand {
-        color: #777
+        color: #fff
     }
 
         .navbar-default .navbar-brand:focus, .navbar-default .navbar-brand:hover {
@@ -4881,11 +4881,11 @@ select[multiple].input-group-sm > .form-control, select[multiple].input-group-sm
         }
 
     .navbar-default .navbar-text {
-        color: #777
+        color: #fff
     }
 
     .navbar-default .navbar-nav > li > a {
-        color: #777
+        color: #fff
     }
 
         .navbar-default .navbar-nav > li > a:focus, .navbar-default .navbar-nav > li > a:hover {

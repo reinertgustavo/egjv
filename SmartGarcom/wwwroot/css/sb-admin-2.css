@@ -47,7 +47,7 @@ body {
 }
 
 .navbar-defaultAdm {
-    background-color: rgba(0,0,0,0.9);
+    background-color: rgba(51,51,51,0.9);
 }
 
 .navbar-default {
@@ -57,7 +57,7 @@ body {
 
 .nav > li > a:focus, .nav > li > a:hover {
     text-decoration: none;
-    background-color: #FFE169;
+    background-color: #fff;
 }
 
 .navbar-brand {
@@ -111,7 +111,7 @@ a{
 }
 
 .dropdown-toggle {
-    color: #000;
+    color: #fff;
 }
 
 .table-striped > tbody > tr:nth-of-type(odd) {
