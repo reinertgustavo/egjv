@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace SmartGarcom.Models
 {
-    public class Product
+    public class Asset
     {
-        public long ProductId { get; set; }
+        public long AssetId { get; set; }
 
         [Display(Name = "Empresa")]
         public long CompanyId { get; set; }
@@ -17,9 +17,9 @@ namespace SmartGarcom.Models
         public virtual Company Company { get; set; }
 
         [Display(Name = "Categorias")]
-        public long ProductCategoryId { get; set; }
-        [ForeignKey("ProductCategoryId")]
-        public virtual ProductCategory ProductCategory { get; set; }
+        public long AssetTypeId { get; set; }
+        [ForeignKey("AssetTypeId")]
+        public virtual AssetType AssetType { get; set; }
 
         [Display(Name="Nome")]
         public string Name { get; set; }

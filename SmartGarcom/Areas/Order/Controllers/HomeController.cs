@@ -25,7 +25,7 @@ namespace SmartGarcom.Areas.Order.Controllers
             HomeCompanyVM vm = new HomeCompanyVM
             {
                 CompanyName = company.Name,
-                Products = db.Products.Where(m => m.Company.CompanyId == company.CompanyId).ToList(),
+                Assets = db.Assets.Where(m => m.Company.CompanyId == company.CompanyId).ToList(),
                 Companies = db.Companies.Find(company.CompanyId),
                 CompanyImagePath = company.ImagePath
             };

@@ -21,10 +21,10 @@ namespace SmartGarcom.ViewModels
         public string CompanyImagePath { get; set; }
 
         [Display(Name = "Empresa")]
-        public List<Product> Products { get; set; }
+        public List<Asset> Assets { get; set; }
         public long SelectedProductId { get; set; }
 
-        public ProductCategory Categories { get; set; }
+        public AssetType Categories { get; set; }
         public string CategoryName { get; set; }
        
         

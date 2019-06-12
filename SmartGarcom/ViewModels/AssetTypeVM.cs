@@ -8,15 +8,15 @@ using Microsoft.AspNetCore.Http;
 
 namespace SmartGarcom.ViewModels
 {
-    public class ProductCategoryVM
+    public class AssetTypeVM
     {
-        public ProductCategoryVM()
+        public AssetTypeVM()
         {
             this.Companies = new List<SelectListItem>();
         }
 
         [Display(Name = "Codigo")]
-        public long ProductCategoryId { get; set; }
+        public long AssetTypeId { get; set; }
 
         public List<SelectListItem> Companies { get; set; }
         [Display(Name = "Empresa")]

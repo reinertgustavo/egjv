@@ -73,10 +73,10 @@
     <Content Update="Areas\Admin\Views\Companies\Index.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Areas\Admin\Views\ProductCategories\Delete.cshtml">
+    <Content Update="Areas\Admin\Views\AssetTypes\Delete.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Areas\Admin\Views\ProductCategories\Edit.cshtml">
+    <Content Update="Areas\Admin\Views\AssetTypes\Edit.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Areas\Admin\Views\Status\Create.cshtml">

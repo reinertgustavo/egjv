@@ -31,12 +31,12 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var product in Model.Products)
+                @foreach (var asset in Model.Assets)
                 {
                     <tr>
-                        <td>@product.Name</td>
-                        <td>R$ @product.Price</td>
-                        <td>@product.Description</td>
+                        <td>@asset.Name</td>
+                        <td>R$ @asset.Price</td>
+                        <td>@asset.Description</td>
                         <td style="text-align: center;">
                             <button type="button" class="btn btn-warning" aria-label="Adicionar ao carrinho">
                                 <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>

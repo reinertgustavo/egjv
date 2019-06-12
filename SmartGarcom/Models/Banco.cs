@@ -15,36 +15,36 @@ namespace SmartGarcom.Models
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Company> Companies { get; set; }
         public virtual DbSet<TUser> TUsers { get; set; }
-        public virtual DbSet<ProductCategory> ProductCategories { get; set; }
-        public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<AssetType> AssetTypes { get; set; }
+        public virtual DbSet<Asset> Assets { get; set; }
         public virtual DbSet<Table> Tables { get; set; }
         public virtual DbSet<OrderCard> OrderCards { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
-        public virtual DbSet<OrderProduct> OrderProducts { get; set; }
+        public virtual DbSet<OrderProduct> OrderAssets { get; set; }
         public virtual DbSet<Status> Status { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Product>()
+            modelBuilder.Entity<Asset>()
                 .HasOne(p => p.Company)
-                .WithMany(b => b.Products)
+                .WithMany(b => b.Assets)
                 .HasForeignKey(p => p.CompanyId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<Product>()
-                .HasOne(p => p.ProductCategory)
-                .WithMany(b => b.Products)
-                .HasForeignKey(p => p.ProductCategoryId)
+            modelBuilder.Entity<Asset>()
+                .HasOne(p => p.AssetType)
+                .WithMany(b => b.Assets)
+                .HasForeignKey(p => p.AssetTypeId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<ProductCategory>()
+            modelBuilder.Entity<AssetType>()
                 .HasOne(p => p.Company)
-                .WithMany(b => b.ProductCategories)
+                .WithMany(b => b.AssetTypes)
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
 
-               modelBuilder.Entity<Product>().HasQueryFilter(p => !p.IsDeleted);
-                modelBuilder.Entity<ProductCategory>().HasQueryFilter(p => !p.IsDeleted);
+               modelBuilder.Entity<Asset>().HasQueryFilter(p => !p.IsDeleted);
+                modelBuilder.Entity<AssetType>().HasQueryFilter(p => !p.IsDeleted);
                 modelBuilder.Entity<TUser>().HasQueryFilter(p => !p.IsDeleted);
                 modelBuilder.Entity<Company>().HasQueryFilter(p => !p.IsDeleted);
                 modelBuilder.Entity<Table>().HasQueryFilter(p => !p.IsDeleted);

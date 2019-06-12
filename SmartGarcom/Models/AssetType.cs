@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace SmartGarcom.Models
 {
-    public class ProductCategory
+    public class AssetType
     {
 
-        public long ProductCategoryId { get; set; }
+        public long AssetTypeId { get; set; }
 
         [Display(Name = "Empresa")]
         public long CompanyId { get; set; }
@@ -23,7 +23,7 @@ namespace SmartGarcom.Models
 
         public String ImagePath { get; set; }
 
-        public List<Product> Products { get; set; }
+        public List<Asset> Assets { get; set; }
 
         public bool IsDeleted { get; set; }
 

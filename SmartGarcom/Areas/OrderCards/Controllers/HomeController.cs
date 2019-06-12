@@ -15,27 +15,27 @@ namespace SmartGarcom.Areas.OrderCards.Controllers
         {
         }
 
-        public IActionResult Index(long category = 0)
+        public IActionResult Index(long type = 0)
         {
             if (ViewBag.OrderCard != null)
             {
                 var currentUser = (TUser)ViewBag.TUser;
                 var currentOrder = (OrderCard)ViewBag.OrderCard;
-                if (category == 0)
+                if (type == 0)
                 {
-                    var categories = db.ProductCategories
+                    var types = db.AssetTypes
                                            .Where(m => m.Company.CompanyId == currentOrder.Company.CompanyId)
                                            .ToList();
                     OrderCardVM vm = new OrderCardVM
                     {
-                        ProductCategories = categories
+                        AssetTypes = types
 
                     };
-                    var products = db.Products
-                                           .Include(m => m.ProductCategory)
+                    var Assets = db.Assets
+                                           .Include(m => m.AssetType)
                                            .Where(m => m.Company.CompanyId == currentOrder.Company.CompanyId)
                                            .ToList();
-                    vm.Products = products;
+                    vm.Assets = Assets;
                     return View(vm);
                 }
                 else

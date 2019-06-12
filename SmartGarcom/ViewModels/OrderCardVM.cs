@@ -13,12 +13,12 @@ namespace SmartGarcom.ViewModels
         public OrderCardVM()
         {
             this.Companies = new List<SelectListItem>();
-            //ProductCategories = new List<SelectListItem>();
+            //AssetTypes = new List<SelectListItem>();
             this.Tables = new List<SelectListItem>();
         }
 
         [Display(Name = "Codigo")]
-        public long ProductId { get; set; }
+        public long AssetId { get; set; }
 
         public long SelectedTableId { get; set; }
         public List<SelectListItem> Tables { get; set; }
@@ -30,12 +30,12 @@ namespace SmartGarcom.ViewModels
 
         [Display(Name = "Categorias")]
         public long SelectedProductCategoryId { get; set; }
-        public List<ProductCategory> ProductCategories { get; set; }
-        public ProductCategory ProductCategory { get; set; }
+        public List<AssetType> AssetTypes { get; set; }
+        public AssetType AssetType { get; set; }
 
         public long SelectedProductId { get; set; }
-        public List<Product> Products { get; set; }
-        public Product Product { get; set; }
+        public List<Asset> Assets { get; set; }
+        public Asset Asset { get; set; }
 
         [Required(ErrorMessage = "Informe o Nome")]
         [Display(Name = "Nome")]

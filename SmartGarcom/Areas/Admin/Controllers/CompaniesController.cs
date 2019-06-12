@@ -124,15 +124,15 @@ namespace SmartGarcom.Areas.Admin.Controllers
                 {
                     db.Tables.Remove(table);
                 }
-                var categories = db.ProductCategories.Where(m => m.Company.CompanyId == companyDb.CompanyId).IgnoreQueryFilters().ToList();
-                foreach(var category in categories)
+                var types = db.AssetTypes.Where(m => m.Company.CompanyId == companyDb.CompanyId).IgnoreQueryFilters().ToList();
+                foreach(var type in types)
                 {
-                    db.ProductCategories.Remove(category);
+                    db.AssetTypes.Remove(type);
                 }
-                var products = db.Products.Where(m => m.Company.CompanyId == companyDb.CompanyId).IgnoreQueryFilters().ToList();
-                foreach (var product in products)
+                var Assets = db.Assets.Where(m => m.Company.CompanyId == companyDb.CompanyId).IgnoreQueryFilters().ToList();
+                foreach (var asset in Assets)
                 {
-                    db.Products.Remove(product);
+                    db.Assets.Remove(asset);
                 }
                 var users = db.TUsers.Where(m => m.Company.CompanyId == companyDb.CompanyId).IgnoreQueryFilters().ToList();
                 foreach (var user in users)

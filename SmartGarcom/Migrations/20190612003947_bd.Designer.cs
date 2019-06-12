@@ -10,7 +10,7 @@ using SmartGarcom.Models;
 namespace SmartGarcom.Migrations
 {
     [DbContext(typeof(Banco))]
-    [Migration("20190608021201_bd")]
+    [Migration("20190612003947_bd")]
     partial class bd
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,6 +20,58 @@ namespace SmartGarcom.Migrations
                 .HasAnnotation("ProductVersion", "2.1.11-servicing-32099")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("SmartGarcom.Models.Asset", b =>
+                {
+                    b.Property<long>("AssetId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("AssetTypeId");
+
+                    b.Property<long>("CompanyId");
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("ImagePath");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("Name");
+
+                    b.Property<double>("Price");
+
+                    b.HasKey("AssetId");
+
+                    b.HasIndex("AssetTypeId");
+
+                    b.HasIndex("CompanyId");
+
+                    b.ToTable("Assets");
+                });
+
+            modelBuilder.Entity("SmartGarcom.Models.AssetType", b =>
+                {
+                    b.Property<long>("AssetTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("CompanyId");
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("ImagePath");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("AssetTypeId");
+
+                    b.HasIndex("CompanyId");
+
+                    b.ToTable("AssetTypes");
+                });
 
             modelBuilder.Entity("SmartGarcom.Models.Company", b =>
                 {
@@ -109,71 +161,19 @@ namespace SmartGarcom.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long?>("OrderId");
+                    b.Property<long?>("AssetId");
 
-                    b.Property<long?>("ProductId");
+                    b.Property<long?>("OrderId");
 
                     b.Property<long>("Quantity");
 
                     b.HasKey("OrderProductId");
 
+                    b.HasIndex("AssetId");
+
                     b.HasIndex("OrderId");
 
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("OrderProducts");
-                });
-
-            modelBuilder.Entity("SmartGarcom.Models.Product", b =>
-                {
-                    b.Property<long>("ProductId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<long>("CompanyId");
-
-                    b.Property<string>("Description");
-
-                    b.Property<string>("ImagePath");
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<string>("Name");
-
-                    b.Property<double>("Price");
-
-                    b.Property<long>("ProductCategoryId");
-
-                    b.HasKey("ProductId");
-
-                    b.HasIndex("CompanyId");
-
-                    b.HasIndex("ProductCategoryId");
-
-                    b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("SmartGarcom.Models.ProductCategory", b =>
-                {
-                    b.Property<long>("ProductCategoryId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<long>("CompanyId");
-
-                    b.Property<string>("Description");
-
-                    b.Property<string>("ImagePath");
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("ProductCategoryId");
-
-                    b.HasIndex("CompanyId");
-
-                    b.ToTable("ProductCategories");
+                    b.ToTable("OrderAssets");
                 });
 
             modelBuilder.Entity("SmartGarcom.Models.Role", b =>
@@ -262,6 +262,26 @@ namespace SmartGarcom.Migrations
                     b.ToTable("TUsers");
                 });
 
+            modelBuilder.Entity("SmartGarcom.Models.Asset", b =>
+                {
+                    b.HasOne("SmartGarcom.Models.AssetType", "AssetType")
+                        .WithMany("Assets")
+                        .HasForeignKey("AssetTypeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("SmartGarcom.Models.Company", "Company")
+                        .WithMany("Assets")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("SmartGarcom.Models.AssetType", b =>
+                {
+                    b.HasOne("SmartGarcom.Models.Company", "Company")
+                        .WithMany("AssetTypes")
+                        .HasForeignKey("CompanyId");
+                });
+
             modelBuilder.Entity("SmartGarcom.Models.Order", b =>
                 {
                     b.HasOne("SmartGarcom.Models.OrderCard", "OrderCard")
@@ -290,33 +310,13 @@ namespace SmartGarcom.Migrations
 
             modelBuilder.Entity("SmartGarcom.Models.OrderProduct", b =>
                 {
+                    b.HasOne("SmartGarcom.Models.Asset", "Asset")
+                        .WithMany()
+                        .HasForeignKey("AssetId");
+
                     b.HasOne("SmartGarcom.Models.Order", "Order")
                         .WithMany()
                         .HasForeignKey("OrderId");
-
-                    b.HasOne("SmartGarcom.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId");
-                });
-
-            modelBuilder.Entity("SmartGarcom.Models.Product", b =>
-                {
-                    b.HasOne("SmartGarcom.Models.Company", "Company")
-                        .WithMany("Products")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("SmartGarcom.Models.ProductCategory", "ProductCategory")
-                        .WithMany("Products")
-                        .HasForeignKey("ProductCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("SmartGarcom.Models.ProductCategory", b =>
-                {
-                    b.HasOne("SmartGarcom.Models.Company", "Company")
-                        .WithMany("ProductCategories")
-                        .HasForeignKey("CompanyId");
                 });
 
             modelBuilder.Entity("SmartGarcom.Models.Table", b =>

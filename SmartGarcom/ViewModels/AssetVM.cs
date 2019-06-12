@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace SmartGarcom.ViewModels
 {
-    public class ProductVM
+    public class AssetVM
     {
-        public ProductVM()
+        public AssetVM()
         {
             this.Companies = new List<SelectListItem>();
-            this.ProductCategory = new List<SelectListItem>();
+            this.AssetType = new List<SelectListItem>();
         }
 
         [Display(Name = "Codigo")]
-        public long ProductId { get; set; }
+        public long AssetId { get; set; }
 
         [Display(Name = "Empresa")]
         public long SelectedCompanyId { get; set; }
@@ -25,7 +25,7 @@ namespace SmartGarcom.ViewModels
 
         [Display(Name = "Categorias")]
         public long SelectedProductCategoryId { get; set; }
-        public List<SelectListItem> ProductCategory { get; set; }
+        public List<SelectListItem> AssetType { get; set; }
 
         [Required(ErrorMessage = "Informe o Nome")]
         [Display(Name = "Nome")]

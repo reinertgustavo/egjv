@@ -1,7 +1,7 @@
-﻿@model List<SmartGarcom.Models.ProductCategory>
+﻿@model List<SmartGarcom.Models.AssetType>
 @{
     ViewData["Title"] = "Categorias";
-    ViewData["Controller"] = "ProductCategories";
+    ViewData["Controller"] = "AssetTypes";
     ViewData["Action"] = "Create";
     ViewData["NomeBtn"] = "Criar Categoria";
 }
@@ -21,19 +21,19 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var category in Model)
+                @foreach (var type in Model)
                 {
                     <tr>
-                        <td class="text-center">@category.ProductCategoryId</td>
-                        <td>@category.Name</td>
-                        <td>@category.Description</td>
+                        <td class="text-center">@type.AssetTypeId</td>
+                        <td>@type.Name</td>
+                        <td>@type.Description</td>
                         @if (ViewBag.TUser.Role.RoleId == 1)
                         {
-                            <td>@category.Company.Name</td>
+                            <td>@type.Company.Name</td>
                         }
                         <td width="10%">
-                            <a class="btn btn-primary glyphicon glyphicon-pencil" asp-area="Admin" asp-controller="ProductCategories" asp-action="Edit" asp-route-id="@category.ProductCategoryId"></a>
-                            <a class="btn btn-danger glyphicon glyphicon-trash" asp-area="Admin" asp-controller="ProductCategories" asp-action="Delete" asp-route-id="@category.ProductCategoryId"></a>
+                            <a class="btn btn-primary glyphicon glyphicon-pencil" asp-area="Admin" asp-controller="AssetTypes" asp-action="Edit" asp-route-id="@type.AssetTypeId"></a>
+                            <a class="btn btn-danger glyphicon glyphicon-trash" asp-area="Admin" asp-controller="AssetTypes" asp-action="Delete" asp-route-id="@type.AssetTypeId"></a>
                         </td>
                     </tr>
                 }

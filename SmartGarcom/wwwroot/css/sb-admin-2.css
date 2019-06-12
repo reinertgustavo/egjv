@@ -88,16 +88,23 @@ body {
 }
 .btn-primary {
     color: #fff;
-    background-color: #a0a0a0;
+    background-color: rgba(51,51,51,0.9);
     border-color: #a0a0a0;
 }
+
+.btn-primary.box {
+    color: #fff;
+    background-color: #fff;
+    border-color: #a0a0a0;
+}
+
 .form-control {
     background-color: #FFFFFF;
 }
 
 .panel-default > .panel-heading {
-    color: #333;
-    background-color: #f4f4d4;
+    color: #fff;
+    background-color: rgba(51,51,51,0.9);
     border-color: #ddd;
 }
 
@@ -112,6 +119,10 @@ a{
 
 .dropdown-toggle {
     color: #fff;
+}
+
+.dropdown-toggle.box {
+    color: #333;
 }
 
 .table-striped > tbody > tr:nth-of-type(odd) {

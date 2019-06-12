@@ -46,8 +46,8 @@ namespace SmartGarcom.Models
         [Display(Name = "Imagem")]
         public string ImagePath { get; set; }
 
-        public List<Product> Products { get; set; }
-        public List<ProductCategory> ProductCategories { get; set; }
+        public List<Asset> Assets { get; set; }
+        public List<AssetType> AssetTypes { get; set; }
         public List<Table> Tables { get; set; }
         public List<TUser> Users { get; set; }
 

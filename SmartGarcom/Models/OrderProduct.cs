@@ -11,7 +11,7 @@ namespace SmartGarcom.Models
 
         public virtual Order Order { get; set; }
 
-        public virtual Product Product { get; set; }
+        public virtual Asset Asset { get; set; }
 
         public long Quantity { get; set; }
     }

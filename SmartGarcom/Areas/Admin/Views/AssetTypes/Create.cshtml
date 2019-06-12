@@ -1,11 +1,11 @@
-﻿@model SmartGarcom.ViewModels.ProductCategoryVM
+﻿@model SmartGarcom.ViewModels.AssetTypeVM
 
 @{
     ViewData["Title"] = "Nova Categoria";
 }
 
 <div class="row">
-    <form asp-controller="ProductCategories" asp-action="Create" method="post" enctype="multipart/form-data" class="form-horizontal">
+    <form asp-controller="AssetTypes" asp-action="Create" method="post" enctype="multipart/form-data" class="form-horizontal">
         <div class="form-group">
             <label class="col-sm-2 control-label" asp-for="Name"></label>
             <div class="col-sm-10">
@@ -44,7 +44,7 @@
 
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <a asp-controller="ProductCategories"
+                <a asp-controller="AssetTypes"
                    asp-action="Index"
                    class="btn btn-default">Cancelar</a>
                 <button type="submit"

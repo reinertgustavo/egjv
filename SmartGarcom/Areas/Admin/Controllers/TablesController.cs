@@ -126,7 +126,7 @@ namespace SmartGarcom.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Delete(long id, Table product)
+        public IActionResult Delete(long id, Table asset)
         {
             Table table = this.db.Tables
                                 .Where(x => x.TableId == id)
@@ -137,7 +137,7 @@ namespace SmartGarcom.Areas.Admin.Controllers
             }
             else
             {
-                product.IsDeleted = true;
+                asset.IsDeleted = true;
             }
             db.SaveChanges();
             return RedirectToAction("Index");
