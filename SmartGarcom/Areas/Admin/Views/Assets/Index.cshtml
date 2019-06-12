@@ -1,9 +1,9 @@
 ﻿@model List<SmartGarcom.Models.Asset>
 @{
-    ViewData["Title"] = "Produtos";
+    ViewData["Title"] = "Ativos";
     ViewData["Controller"] = "Assets";
     ViewData["Action"] = "Create";
-    ViewData["NomeBtn"] = "Criar Produto";
+    ViewData["NomeBtn"] = "Criar Ativo";
 }
 <div class="row">
     <div class="col-lg-12">
@@ -68,7 +68,7 @@
                     {
                         extend: 'copyHtml5',
                         text: '<i class="fa fa-files-o"></i>',
-                        titleAttr: 'Copy',
+                        titleAttr: 'Copiar',
                         exportOptions: {   
                             columns: ':visible'
                         },

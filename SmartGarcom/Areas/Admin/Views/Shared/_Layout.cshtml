@@ -169,7 +169,7 @@
                     <ul class="nav" id="side-menu">
                         <li class="sidebar-search">
                             <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Search...">
+                                <input type="text" class="form-control" placeholder="Pesquisar">
                                 <span class="input-group-btn">
                                     <button class="btn btn-default" type="button">
                                         <i class="fa fa-search"></i>
@@ -187,24 +187,24 @@
                                 @if (ViewBag.TUser.Role.RoleId == 1)
                                 {
                                     <li>
-                                        <a href="\Admin\Companies"><i class="fa fa-building fa-fw"></i>Empresas</a>
+                                        <a href="\Admin\Companies"><i class="fa fa-building fa-fw"></i> Empresas</a>
                                     </li>
                                 }
 
                                 <li>
-                                    <a href="\Admin\TUsers"><i class="fa fa-users fa-fw"></i>Usuários</a>
+                                    <a href="\Admin\TUsers"><i class="fa fa-users fa-fw"></i> Usuários</a>
                                 </li>
                                 <li>
-                                    <a href="\Admin\AssetTypes"><i class="fa fa-file-text fa-fw"></i>Categoria do Ativo</a>
+                                    <a href="\Admin\AssetTypes"><i class="fa fa-file-text fa-fw"></i> Categoria do Ativo</a>
                                 </li>
                                 <li>
-                                    <a href="\Admin\Assets"><i class="fa fa-cutlery fa-fw"></i>Ativos</a>
+                                    <a href="\Admin\Assets"><i class="fa fa-desktop fa-fw"></i> Ativos</a>
                                 </li>
                                 <li>
-                                    <a href="\Admin\Tables"><i class="fa fa-table fa-fw"></i>Mesas</a>
+                                    <a href="\Admin\Tables"><i class="fa fa-table fa-fw"></i> Mesas</a>
                                 </li>
                                 <li>
-                                    <a href="\Admin\Status"><i class="fa fa-check fa-fw"></i>Status</a>
+                                    <a href="\Admin\Status"><i class="fa fa-check fa-fw"></i> Status</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -283,7 +283,7 @@
                     {
                         extend: 'copyHtml5',
                         text: '<i class="fa fa-files-o"></i>',
-                        titleAttr: 'Copy',
+                        titleAttr: 'Copiar',
                         exportOptions: {
                             columns: ':visible'
                         },

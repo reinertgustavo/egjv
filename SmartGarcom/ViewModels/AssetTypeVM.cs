@@ -15,7 +15,7 @@ namespace SmartGarcom.ViewModels
             this.Companies = new List<SelectListItem>();
         }
 
-        [Display(Name = "Codigo")]
+        [Display(Name = "Código")]
         public long AssetTypeId { get; set; }
 
         public List<SelectListItem> Companies { get; set; }
@@ -26,7 +26,7 @@ namespace SmartGarcom.ViewModels
         [Display(Name = "Nome")]
         public string Name { get; set; }
 
-        [Display(Name = "Descriçao")]
+        [Display(Name = "Descrição")]
         public string Description { get; set; }
 
         [Display(Name = "Imagem")]
