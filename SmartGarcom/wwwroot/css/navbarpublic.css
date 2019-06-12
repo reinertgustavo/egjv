@@ -10,6 +10,10 @@
     color: #fff;
 }
 
+.navbar-default .navbar-nav:hover > li > a {
+    color: #5e5e5e;
+}
+
 .navbar-default .navbar-brand {
     color: #fff;
 }
