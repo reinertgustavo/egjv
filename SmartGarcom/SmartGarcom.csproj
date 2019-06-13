@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="wwwroot\favicon.ico" />
+    <Content Remove="wwwroot\images\egjv.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -57,7 +57,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\favicon.ico" />
+    <None Include="wwwroot\images\egjv.ico" />
   </ItemGroup>
 
   <ItemGroup>
