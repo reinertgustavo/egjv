@@ -48,7 +48,7 @@ namespace SmartGarcom.Models
 
         public List<Asset> Assets { get; set; }
         public List<AssetType> AssetTypes { get; set; }
-        public List<Table> Tables { get; set; }
+        public List<Ticket> Tickets { get; set; }
         public List<TUser> Users { get; set; }
 
         public bool IsDeleted { get; set; }

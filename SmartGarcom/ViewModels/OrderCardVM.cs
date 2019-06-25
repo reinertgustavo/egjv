@@ -14,14 +14,14 @@ namespace SmartGarcom.ViewModels
         {
             this.Companies = new List<SelectListItem>();
             //AssetTypes = new List<SelectListItem>();
-            this.Tables = new List<SelectListItem>();
+            this.Tickets = new List<SelectListItem>();
         }
 
         [Display(Name = "Codigo")]
         public long AssetId { get; set; }
 
-        public long SelectedTableId { get; set; }
-        public List<SelectListItem> Tables { get; set; }
+        public long SelectedTicketId { get; set; }
+        public List<SelectListItem> Tickets { get; set; }
 
         [Display(Name = "Empresa")]
         public long SelectedCompanyId { get; set; }

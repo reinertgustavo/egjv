@@ -17,7 +17,7 @@ namespace SmartGarcom.Models
         public virtual DbSet<TUser> TUsers { get; set; }
         public virtual DbSet<AssetType> AssetTypes { get; set; }
         public virtual DbSet<Asset> Assets { get; set; }
-        public virtual DbSet<Table> Tables { get; set; }
+        public virtual DbSet<Ticket> Tickets { get; set; }
         public virtual DbSet<OrderCard> OrderCards { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<OrderProduct> OrderAssets { get; set; }
@@ -47,7 +47,7 @@ namespace SmartGarcom.Models
                 modelBuilder.Entity<AssetType>().HasQueryFilter(p => !p.IsDeleted);
                 modelBuilder.Entity<TUser>().HasQueryFilter(p => !p.IsDeleted);
                 modelBuilder.Entity<Company>().HasQueryFilter(p => !p.IsDeleted);
-                modelBuilder.Entity<Table>().HasQueryFilter(p => !p.IsDeleted);
+                modelBuilder.Entity<Ticket>().HasQueryFilter(p => !p.IsDeleted);
 
             
 

@@ -10,7 +10,7 @@ using SmartGarcom.Models;
 namespace SmartGarcom.Migrations
 {
     [DbContext(typeof(Banco))]
-    [Migration("20190612003947_bd")]
+    [Migration("20190625000402_bd")]
     partial class bd
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -138,7 +138,7 @@ namespace SmartGarcom.Migrations
 
                     b.Property<long?>("CompanyId");
 
-                    b.Property<long?>("TableId");
+                    b.Property<long?>("TicketId");
 
                     b.Property<long?>("UserTUserId");
 
@@ -148,7 +148,7 @@ namespace SmartGarcom.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.HasIndex("TableId");
+                    b.HasIndex("TicketId");
 
                     b.HasIndex("UserTUserId");
 
@@ -206,25 +206,35 @@ namespace SmartGarcom.Migrations
                     b.ToTable("Status");
                 });
 
-            modelBuilder.Entity("SmartGarcom.Models.Table", b =>
+            modelBuilder.Entity("SmartGarcom.Models.Ticket", b =>
                 {
-                    b.Property<long>("TableId")
+                    b.Property<long>("TicketId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<long?>("AssetId");
+
+                    b.Property<string>("Assunto");
+
                     b.Property<long?>("CompanyId");
+
+                    b.Property<string>("Descricao");
 
                     b.Property<bool>("IsDeleted");
 
-                    b.Property<string>("Number");
+                    b.Property<string>("Name");
 
-                    b.Property<string>("QRCode");
+                    b.Property<string>("Responsavel");
 
-                    b.HasKey("TableId");
+                    b.Property<string>("Status");
+
+                    b.HasKey("TicketId");
+
+                    b.HasIndex("AssetId");
 
                     b.HasIndex("CompanyId");
 
-                    b.ToTable("Tables");
+                    b.ToTable("Tickets");
                 });
 
             modelBuilder.Entity("SmartGarcom.Models.TUser", b =>
@@ -299,9 +309,9 @@ namespace SmartGarcom.Migrations
                         .WithMany()
                         .HasForeignKey("CompanyId");
 
-                    b.HasOne("SmartGarcom.Models.Table", "Table")
+                    b.HasOne("SmartGarcom.Models.Ticket", "Ticket")
                         .WithMany()
-                        .HasForeignKey("TableId");
+                        .HasForeignKey("TicketId");
 
                     b.HasOne("SmartGarcom.Models.TUser", "User")
                         .WithMany()
@@ -319,10 +329,14 @@ namespace SmartGarcom.Migrations
                         .HasForeignKey("OrderId");
                 });
 
-            modelBuilder.Entity("SmartGarcom.Models.Table", b =>
+            modelBuilder.Entity("SmartGarcom.Models.Ticket", b =>
                 {
+                    b.HasOne("SmartGarcom.Models.Asset", "Asset")
+                        .WithMany()
+                        .HasForeignKey("AssetId");
+
                     b.HasOne("SmartGarcom.Models.Company", "Company")
-                        .WithMany("Tables")
+                        .WithMany("Tickets")
                         .HasForeignKey("CompanyId");
                 });
 

@@ -1,9 +1,9 @@
-﻿@model List<SmartGarcom.Models.Table>
+@model List<SmartGarcom.Models.Ticket>
 @{
-    ViewData["Title"] = "Mesas";
-    ViewData["Controller"] = "Tables";
+    ViewData["Title"] = "Todos os Tickets";
+    ViewData["Controller"] = "Tickets";
     ViewData["Action"] = "Create";
-    ViewData["NomeBtn"] = "Criar Mesa";
+    ViewData["NomeBtn"] = "Abrir Ticket";
 }
 <div class="row">
     <div class="col-lg-12">
@@ -15,26 +15,26 @@
                         <th>#</th>
                     }
 
-                    <th>Num. Mesa</th>
-                    <th>QR-Code</th>
+                    <th>Nome do Ticket</th>
+                    <th>Descrição</th>
                     <th class="text-center" width="10%"></th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var table in Model)
+                @foreach (var ticket in Model)
                 {
                 <tr>
                     @if (ViewBag.TUser.Role.RoleId == 1)
                     {
-                        <td>@table.TableId</td>
+                        <td>@ticket.TicketId</td>
                         
                     }
 
-                    <td>@table.Number</td>
-                    <td><a href="@table.QRCode">QR-Code</a></td>
+                    <td>@ticket.Name</td>
+                    <td><a href="@ticket.Descricao">Descrição</a></td>
                     <td width="10%">
-                        <a class="btn btn-primary glyphicon glyphicon-pencil" asp-area="Admin" asp-controller="Tables" asp-action="Edit" asp-route-id="@table.TableId"></a>
-                        <a class="btn btn-danger glyphicon glyphicon-trash" asp-area="Admin" asp-controller="Tables" asp-action="Delete" asp-route-id="@table.TableId"></a>
+                        <a class="btn btn-primary glyphicon glyphicon-pencil" asp-area="Admin" asp-controller="Tickets" asp-action="Edit" asp-route-id="@ticket.TicketId"></a>
+                        <a class="btn btn-danger glyphicon glyphicon-trash" asp-area="Admin" asp-controller="Tickets" asp-action="Delete" asp-route-id="@ticket.TicketId"></a>
                     </td>
 
                 </tr>

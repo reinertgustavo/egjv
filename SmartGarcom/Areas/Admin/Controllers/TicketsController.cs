@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,26 +11,26 @@ using SmartGarcom.ViewModels;
 
 namespace SmartGarcom.Areas.Admin.Controllers
 {
-    public class TablesController : BaseAdminController
+    public class TicketsController : BaseAdminController
     {
 
-        public TablesController(Banco db, IHostingEnvironment env) : base(db, env) { }
+        public TicketsController(Banco db, IHostingEnvironment env) : base(db, env) { }
 
         public IActionResult Index(int? SelectedCompany)
         {
             var currentUser = (TUser)ViewBag.TUser;
             if (currentUser.Role.RoleId == 1)
             {
-                var tables = db.Tables.ToList();
-                return View(tables);
+                var tickets = db.Tickets.ToList();
+                return View(tickets);
             }
             else if (currentUser.Role.RoleId == 2)
             {
-                var tables = db.Tables
+                var tickets = db.Tickets
                 .Include(x => x.Company)
                 .Where(x => x.Company.CompanyId == currentUser.Company.CompanyId)
                 .ToList();
-                return View(tables);
+                return View(tickets);
             }
             return View();
         }
@@ -39,7 +39,7 @@ namespace SmartGarcom.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            TableVM vm = new TableVM
+            TicketVM vm = new TicketVM
             {
                 Companies = ListaComapany()
             };
@@ -47,28 +47,22 @@ namespace SmartGarcom.Areas.Admin.Controllers
         }
     
         [HttpPost]
-        public IActionResult Create(TableVM vm)
+        public IActionResult Create(TicketVM vm)
         {
             
             if (ModelState.IsValid)
             {
                 var currentUser = (TUser)ViewBag.TUser;
-                Table table = new Table
-                {
-                    Number = vm.Number,
-                    
-                    QRCode = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://app.helko.com.br/Order/OrderCards/Home/Create/?nMesa=" + vm.Number + "&comp=" + vm.SelectedCompanyId,
-                    
-                };
+                Ticket ticket = new Ticket();
                 if (currentUser.Role.RoleId == 1) 
                 {
-                    table.Company = db.Companies.Find(vm.SelectedCompanyId);
+                    ticket.Company = db.Companies.Find(vm.SelectedCompanyId);
                 }
                 else
                 {
-                    table.Company = db.Companies.Find(currentUser.Company.CompanyId);
+                    ticket.Company = db.Companies.Find(currentUser.Company.CompanyId);
                 }
-                this.db.Tables.Add(table);
+                this.db.Tickets.Add(ticket);
                 this.db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -77,33 +71,33 @@ namespace SmartGarcom.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Edit(long Id)
         {
-            Table table = this.db.Tables
-                                     .Where(x => x.TableId == Id)
+            Ticket ticket = this.db.Tickets
+                                     .Where(x => x.TicketId == Id)
                                      .FirstOrDefault();
 
-            if (table == null)
+            if (ticket == null)
             {
                 return NotFound();
             }
-            TableVM vm = new TableVM
+            TicketVM vm = new TicketVM
             {
-                TableId = table.TableId,
-                Number = table.Number,
+                TicketId = ticket.TicketId,
+                Name = ticket.Name,
                 Companies = ListaComapany(),
-                SelectedCompanyId = table.Company.CompanyId
+                SelectedCompanyId = ticket.Company.CompanyId
             };
 
 
             return View(vm);
         }
         [HttpPost]
-        public IActionResult Edit(long Id, TableVM vm)
+        public IActionResult Edit(long Id, TicketVM vm)
         {
             if (ModelState.IsValid)
             {
-                Table table = this.db.Tables.Find(Id);
-                table.Number = vm.Number;
-                table.Company = db.Companies.Find(vm.SelectedCompanyId);
+                Ticket ticket = this.db.Tickets.Find(Id);
+                ticket.Name = vm.Name;
+                ticket.Company = db.Companies.Find(vm.SelectedCompanyId);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -113,27 +107,27 @@ namespace SmartGarcom.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Delete(long id)
         {
-            Table table = this.db.Tables
-                              .Where(x => x.TableId == id)
+            Ticket ticket = this.db.Tickets
+                              .Where(x => x.TicketId == id)
                               .FirstOrDefault();
 
-            if (table == null)
+            if (ticket == null)
             {
                 return NotFound();
             }
 
-            return View(table);
+            return View(ticket);
         }
 
         [HttpPost]
-        public IActionResult Delete(long id, Table asset)
+        public IActionResult Delete(long id, Ticket asset)
         {
-            Table table = this.db.Tables
-                                .Where(x => x.TableId == id)
+            Ticket ticket = this.db.Tickets
+                                .Where(x => x.TicketId == id)
                                 .FirstOrDefault();
-            if (ViewBag.TUser.Role.RoleId == 1 && table.IsDeleted == true)
+            if (ViewBag.TUser.Role.RoleId == 1 && ticket.IsDeleted == true)
             {
-                db.Tables.Remove(table);
+                db.Tickets.Remove(ticket);
             }
             else
             {

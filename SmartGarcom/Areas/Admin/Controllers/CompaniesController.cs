@@ -119,10 +119,10 @@ namespace SmartGarcom.Areas.Admin.Controllers
             if (ViewBag.TUser.Role.RoleId == 1 && companyDb.IsDeleted == true)
             {
                 db.Companies.Remove(companyDb);
-                var tables = db.Tables.Where(m => m.Company.CompanyId == companyDb.CompanyId).IgnoreQueryFilters().ToList();
-                foreach (var table in tables)
+                var tickets = db.Tickets.Where(m => m.Company.CompanyId == companyDb.CompanyId).IgnoreQueryFilters().ToList();
+                foreach (var ticket in tickets)
                 {
-                    db.Tables.Remove(table);
+                    db.Tickets.Remove(ticket);
                 }
                 var types = db.AssetTypes.Where(m => m.Company.CompanyId == companyDb.CompanyId).IgnoreQueryFilters().ToList();
                 foreach(var type in types)

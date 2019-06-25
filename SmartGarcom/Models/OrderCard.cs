@@ -20,7 +20,7 @@ namespace SmartGarcom.Models
         
         public virtual Company Company { get; set; }
 
-        public virtual Table Table { get; set; }
+        public virtual Ticket Ticket { get; set; }
 
         public virtual TUser User { get; set; }
 

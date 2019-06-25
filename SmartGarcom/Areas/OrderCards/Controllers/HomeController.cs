@@ -55,13 +55,13 @@ namespace SmartGarcom.Areas.OrderCards.Controllers
         public IActionResult Create(string nMesa, long comp)
         {
             
-            Table table = db.Tables
+            Ticket table = db.Tickets
                             .Include(t => t.Company)
-                            .Where(t => t.Number == nMesa && t.Company.CompanyId == comp)
+                            .Where(t => t.Name == nMesa && t.Company.CompanyId == comp)
                             .FirstOrDefault();
             OrderCardVM vm = new OrderCardVM
             {
-                SelectedTableId = table.TableId,
+                SelectedTicketId = table.TicketId,
                 SelectedCompanyId = table.Company.CompanyId,
             };
 
@@ -71,7 +71,7 @@ namespace SmartGarcom.Areas.OrderCards.Controllers
             {
                 OrderCard orderCard = db.OrderCards
                             .Include(t => t.Company)
-                            .Include(t => t.Table)
+                            .Include(t => t.Ticket)
                             .Where(t => t.orderCardToken == orderToken)
                             .FirstOrDefault();
                 if (orderCard != null && orderCard.orderCardToken == orderToken)
@@ -85,7 +85,7 @@ namespace SmartGarcom.Areas.OrderCards.Controllers
                 {
                     vm.Companies = ListaComapany();
                 }
-                vm.Tables = ListaTables();
+                vm.Tickets = ListaTickets();
                 return View(vm);
             }
            else
@@ -100,7 +100,7 @@ namespace SmartGarcom.Areas.OrderCards.Controllers
                 OrderCard orderCard = new OrderCard
                 {
                     Company = db.Companies.Find(vm.SelectedCompanyId),
-                    Table = db.Tables.Find(vm.SelectedTableId),
+                    Ticket = db.Tickets.Find(vm.SelectedTicketId),
                     orderCardToken = OrderCard.GenerateOrderCardToken()
                 };
                 TUser user = db.TUsers.Where(m => m.CPF == vm.CPF).FirstOrDefault();

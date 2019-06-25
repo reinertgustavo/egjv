@@ -15,17 +15,17 @@ namespace SmartGarcom.ViewModels
         }
 
         [Display(Name = "Codigo")]
-        public long TableId { get; set; }
+        public long TicketId { get; set; }
 
         [Display(Name = "Codigo Interno")]
-        public long InternalTableId { get; set; }
+        public long InternalTicketId { get; set; }
 
         [Display(Name = "Empresa")]
         public List<SelectListItem> Companies { get; set; }
         public long SelectedCompanyId { get; set; }
 
         [Display(Name = "Numero da Mesa")]
-        public String Number { get; set; }
+        public String Name { get; set; }
 
         [Display(Name = "QR-Code")]
         public String QRCode { get; set; }

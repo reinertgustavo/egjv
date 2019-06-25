@@ -37,42 +37,42 @@ namespace SmartGarcom.Areas.OrderCards.Controllers
 
         }
 
-        public List<SelectListItem> ListaTables()
+        public List<SelectListItem> ListaTickets()
         {
             var currentUser = (TUser)ViewBag.Tuser;
             OrderCardVM vm = new OrderCardVM();
 
             if(currentUser.Role.RoleId == 1)
             {
-                var tables = db.Tables
+                var tickets = db.Tickets
                                .Include(t=> t.Company)
                                .ToList();
-                foreach (var table in tables)
+                foreach (var ticket in tickets)
                 {
-                    vm.Tables.Add(new SelectListItem
+                    vm.Tickets.Add(new SelectListItem
                     {
-                        Value = table.TableId.ToString(),
-                        Text = table.Number + "-" + table.Company.Name
+                        Value = ticket.TicketId.ToString(),
+                        Text = ticket.Name + "-" + ticket.Company.Name
                     });
                 }
             }
             else
             {
-                var tables = db.Tables
+                var tickets = db.Tickets
                                .Include(t => t.Company)
                                .Where(t => t.Company.CompanyId == currentUser.Company.CompanyId)
                                .ToList();
-                foreach (var table in tables)
+                foreach (var ticket in tickets)
                 {
-                    vm.Tables.Add(new SelectListItem
+                    vm.Tickets.Add(new SelectListItem
                     {
-                        Value = table.TableId.ToString(),
-                        Text = table.Number
+                        Value = ticket.TicketId.ToString(),
+                        Text = ticket.Name
                     });
                 }
             }
             
-            return vm.Tables;
+            return vm.Tickets;
 
         }
     }

@@ -84,28 +84,6 @@ namespace SmartGarcom.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Tables",
-                columns: table => new
-                {
-                    TableId = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CompanyId = table.Column<long>(nullable: true),
-                    Number = table.Column<string>(nullable: true),
-                    QRCode = table.Column<string>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Tables", x => x.TableId);
-                    table.ForeignKey(
-                        name: "FK_Tables_Companies_CompanyId",
-                        column: x => x.CompanyId,
-                        principalTable: "Companies",
-                        principalColumn: "CompanyId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "TUsers",
                 columns: table => new
                 {
@@ -170,6 +148,38 @@ namespace SmartGarcom.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Tickets",
+                columns: table => new
+                {
+                    TicketId = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CompanyId = table.Column<long>(nullable: true),
+                    AssetId = table.Column<long>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    Assunto = table.Column<string>(nullable: true),
+                    Descricao = table.Column<string>(nullable: true),
+                    Status = table.Column<string>(nullable: true),
+                    Responsavel = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tickets", x => x.TicketId);
+                    table.ForeignKey(
+                        name: "FK_Tickets_Assets_AssetId",
+                        column: x => x.AssetId,
+                        principalTable: "Assets",
+                        principalColumn: "AssetId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Tickets_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Companies",
+                        principalColumn: "CompanyId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OrderCards",
                 columns: table => new
                 {
@@ -177,7 +187,7 @@ namespace SmartGarcom.Migrations
                     OrderCardId = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CompanyId = table.Column<long>(nullable: true),
-                    TableId = table.Column<long>(nullable: true),
+                    TicketId = table.Column<long>(nullable: true),
                     UserTUserId = table.Column<long>(nullable: true)
                 },
                 constraints: table =>
@@ -190,10 +200,10 @@ namespace SmartGarcom.Migrations
                         principalColumn: "CompanyId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_OrderCards_Tables_TableId",
-                        column: x => x.TableId,
-                        principalTable: "Tables",
-                        principalColumn: "TableId",
+                        name: "FK_OrderCards_Tickets_TicketId",
+                        column: x => x.TicketId,
+                        principalTable: "Tickets",
+                        principalColumn: "TicketId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_OrderCards_TUsers_UserTUserId",
@@ -287,9 +297,9 @@ namespace SmartGarcom.Migrations
                 column: "CompanyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderCards_TableId",
+                name: "IX_OrderCards_TicketId",
                 table: "OrderCards",
-                column: "TableId");
+                column: "TicketId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderCards_UserTUserId",
@@ -307,8 +317,13 @@ namespace SmartGarcom.Migrations
                 column: "StatusID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tables_CompanyId",
-                table: "Tables",
+                name: "IX_Tickets_AssetId",
+                table: "Tickets",
+                column: "AssetId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tickets_CompanyId",
+                table: "Tickets",
                 column: "CompanyId");
 
             migrationBuilder.CreateIndex(
@@ -328,13 +343,7 @@ namespace SmartGarcom.Migrations
                 name: "OrderAssets");
 
             migrationBuilder.DropTable(
-                name: "Assets");
-
-            migrationBuilder.DropTable(
                 name: "Orders");
-
-            migrationBuilder.DropTable(
-                name: "AssetTypes");
 
             migrationBuilder.DropTable(
                 name: "OrderCards");
@@ -343,16 +352,22 @@ namespace SmartGarcom.Migrations
                 name: "Status");
 
             migrationBuilder.DropTable(
-                name: "Tables");
+                name: "Tickets");
 
             migrationBuilder.DropTable(
                 name: "TUsers");
 
             migrationBuilder.DropTable(
-                name: "Companies");
+                name: "Assets");
 
             migrationBuilder.DropTable(
                 name: "Roles");
+
+            migrationBuilder.DropTable(
+                name: "AssetTypes");
+
+            migrationBuilder.DropTable(
+                name: "Companies");
         }
     }
 }

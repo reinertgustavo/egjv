@@ -56,9 +56,16 @@ namespace SmartGarcom.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            CriaAdmin();
-            CommonVM vm = new CommonVM();
-            return View(vm);
+            if(ViewBag.TUser != null && ViewBag.TUser.Role.RoleId == 1)
+            {
+                return RedirectToRoute(new { area = "admin", controller = "home", action = "index" });
+            }
+            else
+            {
+                CriaAdmin();
+                CommonVM vm = new CommonVM();
+                return View(vm);
+            }
         }
 
         [HttpPost]
@@ -83,7 +90,7 @@ namespace SmartGarcom.Controllers
                     user.AuthToken = TUser.GenerateAuthToken();
                     db.SaveChanges();
                     Response.Cookies.Append(TUser.COOKIE_AUTH_TOKEN_NAME, user.AuthToken);
-                    return RedirectToRoute(new {area = "", controller = "Home", action = "Index" });
+                    return RedirectToRoute(new {area = "admin", controller = "Home", action = "Index" });
                 }
                 else
                 {
@@ -106,7 +113,7 @@ namespace SmartGarcom.Controllers
                 user.AuthToken = null;
                 db.SaveChanges();
             }
-            return RedirectToRoute(new { controller = "home", action = "index" });
+            return RedirectToRoute(new {controller = "auth", action = "login" });
         }
 
         [HttpGet]

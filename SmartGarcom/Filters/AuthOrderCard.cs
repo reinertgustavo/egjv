@@ -31,7 +31,7 @@ namespace SmartGarcom.Filters
             var order_token = request.Cookies[OrderCard.COOKIE_ORDERCARD_TOKEN_NAME];
             var orderCard = db.OrderCards
                          .Include(m => m.Company)
-                         .Include(m => m.Table)
+                         .Include(m => m.Ticket)
                          .Include(m => m.User)
                          .Where(m => m.orderCardToken.Equals(order_token) && m.orderCardToken != null)
                          .FirstOrDefault();
