@@ -12,6 +12,7 @@ namespace SmartGarcom.ViewModels
         public TicketVM()
         {
             this.Companies = new List<SelectListItem>();
+            this.Assets = new List<SelectListItem>();
         }
 
         [Display(Name = "Id do Ticket")]

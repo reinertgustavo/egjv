@@ -4,59 +4,78 @@
     ViewData["Title"] = "Abrir Ticket";
 }
 
-<div class="row">
-    <form asp-controller="Tickets" asp-action="Create" method="post" class="form-horizontal">
-        <div class="form-group">
-            <label class="col-sm-2 control-label" asp-for="Assunto"></label>
-            <div class="col-sm-10">
-                <input class="form-control" asp-for="Assunto" />
-                <span class="text-danger" asp-validation-for="Assunto"></span>
-            </div>
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+                ×
+            </button>
+            <h4 class="modal-title">Abrir Ticket</h4>
         </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label" asp-for="Descricao"></label>
-            <div class="col-sm-10">
-                <input class="form-control" asp-for="Descricao" />
-                <span class="text-danger" asp-validation-for="Descricao"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label" asp-for="Status"></label>
-            <div class="col-sm-10">
-                <input class="form-control" asp-for="Status" />
-                <span class="text-danger" asp-validation-for="Status"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label" asp-for="Responsavel"></label>
-            <div class="col-sm-10">
-                <input class="form-control" asp-for="Responsavel" />
-                <span class="text-danger" asp-validation-for="Responsavel"></span>
-            </div>
-        </div>
-        @if (ViewBag.TUser.Role.RoleId == 1)
-        {
-            <div class="form-group">
-                <label class="col-sm-2 control-label" asp-for="SelectedCompanyId"></label>
-                <div class="col-sm-10">
-                    <select class="form-control" asp-for="SelectedCompanyId" asp-items="Model.Companies">
-                        <option value="">Selecione uma opção</option>
-                    </select>
-                    <span class="text-danger" asp-validation-for="SelectedCompanyId"></span>
-                </div>
-            </div>
-        }
+        <div class="modal-body">
+            <div class="row">
+                <form asp-controller="Tickets" asp-action="Create" method="post" class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" asp-for="Assunto"></label>
+                        <div class="col-sm-10">
+                            <input class="form-control" asp-for="Assunto" />
+                            <span class="text-danger" asp-validation-for="Assunto"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" asp-for="Descricao"></label>
+                        <div class="col-sm-10">
+                            <input class="form-control" asp-for="Descricao" />
+                            <span class="text-danger" asp-validation-for="Descricao"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" asp-for="Status"></label>
+                        <div class="col-sm-10">
+                            <input class="form-control" asp-for="Status" />
+                            <span class="text-danger" asp-validation-for="Status"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" asp-for="Responsavel"></label>
+                        <div class="col-sm-10">
+                            <input class="form-control" asp-for="Responsavel" />
+                            <span class="text-danger" asp-validation-for="Responsavel"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Selecione o ativo</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" asp-for="SelectedAssetId" asp-items="Model.Assets">
+                                <option value="">Selecione uma opção</option>
+                            </select>
+                            <span class="text-danger" asp-validation-for="SelectedAssetId"></span>
+                        </div>
+                    </div>
+                    @if (ViewBag.TUser.Role.RoleId == 1)
+                    {
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Selecione a empresa</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" asp-for="SelectedCompanyId" asp-items="Model.Companies">
+                                    <option value="">Selecione uma opção</option>
+                                </select>
+                                <span class="text-danger" asp-validation-for="SelectedCompanyId"></span>
+                            </div>
+                        </div>
+                    }
 
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <a asp-controller="Tickets"
-                   asp-action="Index"
-                   class="btn btn-default">Cancelar</a>
-                <button type="submit"
-                        class="btn btn-success">
-                    Salvar
-                </button>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <a asp-controller="Tickets"
+                               asp-action="Index"
+                               class="btn btn-default">Cancelar</a>
+                            <button type="submit"
+                                    class="btn btn-success">
+                                Salvar
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
-    </form>
-</div>
+    </div>
