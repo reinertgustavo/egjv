@@ -71,6 +71,37 @@ namespace SmartGarcom.Areas.Admin.Controllers
             }
             return vm.TUsers;
         }
+        public List<SelectListItem> ListaTicket()
+        {
+            TicketVM vm = new TicketVM();
+            var currentUser = (TUser)ViewBag.TUser;
+            var tickets = db.Tickets.Include(x => x.Company).Where(x => x.Company.CompanyId == currentUser.Company.CompanyId).ToList();
+            foreach (var ticket in tickets)
+            {
+                vm.Tickets.Add(new SelectListItem
+                {
+                    Value = ticket.TicketId.ToString(),
+                    Text = ticket.Name
+                });
+            }
+            return vm.Tickets;
+        }
+        public List<SelectListItem> ListaTicketAberto()
+        {
+            TicketVM vm = new TicketVM();
+            var currentUser = (TUser)ViewBag.TUser;
+            var tickets = db.Tickets.Include(x => x.Company).Where(x => x.Company.CompanyId == currentUser.Company.CompanyId).Where(d => d.Status == "Aberto" || d.Status == "Novo" || d.Status == "Em progresso").ToList();
+            foreach (var ticket in tickets)
+            {
+                vm.Tickets.Add(new SelectListItem
+                {
+                    Value = ticket.TicketId.ToString(),
+                    Text = ticket.Name
+                });
+            }
+            return vm.Tickets;
+        }
+
         public String UploadImage(IFormFile formFile, string ctl_path , String CompanyName = null)
         {
             if (formFile != null && formFile.Length != 0)

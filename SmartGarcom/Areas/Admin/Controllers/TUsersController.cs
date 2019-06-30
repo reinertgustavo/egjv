@@ -168,11 +168,11 @@ namespace SmartGarcom.Areas.Admin.Controllers
                 }
                 if (ViewBag.TUser.Role.RoleId != 1)
                 {
-                    ticket.Company = db.Companies.Find(ViewBag.TUser.Company.CompanyId);
+                    usuarioDb.Company = db.Companies.Find(ViewBag.TUser.Company.CompanyId);
                 }
                 else
                 {
-                    ticket.Company = db.Companies.Find(vm.SelectedCompanyId);
+                    usuarioDb.Company = db.Companies.Find(vm.SelectedCompanyId);
                 }
                 usuarioDb.Role = db.Roles.Find(vm.SelectedRoleId);
                 db.SaveChanges();

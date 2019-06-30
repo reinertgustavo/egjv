@@ -13,6 +13,7 @@ namespace SmartGarcom.ViewModels
         {
             this.Companies = new List<SelectListItem>();
             this.Assets = new List<SelectListItem>();
+            this.Tickets = new List<SelectListItem>();
         }
 
         [Display(Name = "Id do Ticket")]
@@ -23,6 +24,7 @@ namespace SmartGarcom.ViewModels
 
         [Display(Name = "Empresa")]
         public List<SelectListItem> Companies { get; set; }
+        public List<SelectListItem> Tickets { get; set; }
         public long SelectedCompanyId { get; set; }
 
         [Display(Name = "Ativo")]

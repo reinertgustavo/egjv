@@ -124,7 +124,14 @@ namespace SmartGarcom.Areas.Admin.Controllers
                 ticket.PrevisaoConclusao = vm.PrevisaoConclusao;
                 ticket.Asset = db.Assets.Find(vm.SelectedAssetId);
                 ticket.TUser = db.TUsers.Find(vm.SelectedUserId);
-                ticket.Company = db.Companies.Find(vm.SelectedCompanyId);
+                if (ViewBag.TUser.Role.RoleId != 1)
+                {
+                    ticket.Company = db.Companies.Find(ViewBag.TUser.Company.CompanyId);
+                }
+                else
+                {
+                    ticket.Company = db.Companies.Find(vm.SelectedCompanyId);
+                }
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

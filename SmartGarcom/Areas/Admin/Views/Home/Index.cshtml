@@ -1,4 +1,4 @@
-﻿
+﻿@model List<SmartGarcom.Models.Home>
 @{
     ViewData["Title"] = "Área de trabalho";
     ViewData["Controller"] = "Tickets";
@@ -58,7 +58,8 @@
                         <i class="fa fa-ticket fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">10</div>
+                        <div class="huge">
+                           @ViewBag.TicketsAbertos</div>
                         <div>Tickets abertos</div>
                     </div>
                 </div>
