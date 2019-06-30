@@ -108,9 +108,16 @@ namespace SmartGarcom.Areas.Admin.Controllers
                     Email = vm.Email,
                     Birthdate = vm.Birthdate,
                     Password = TUser.GenerateHash(vm.Password),
-                    Company = db.Companies.Find(vm.SelectedCompanyId),
                     Role = db.Roles.Find(vm.SelectedRoleId)
                 };
+                if (ViewBag.TUser.Role.RoleId != 1)
+                {
+                    usuario.Company = db.Companies.Find(ViewBag.TUser.Company.CompanyId);
+                }
+                else
+                {
+                    usuario.Company = db.Companies.Find(vm.SelectedCompanyId);
+                }
                 this.db.TUsers.Add(usuario);
                 this.db.SaveChanges();
                 return RedirectToAction("Index");
@@ -159,7 +166,14 @@ namespace SmartGarcom.Areas.Admin.Controllers
                 {
                     usuarioDb.Password = TUser.GenerateHash(vm.Password);
                 }
-                usuarioDb.Company = db.Companies.Find(vm.SelectedCompanyId);
+                if (ViewBag.TUser.Role.RoleId != 1)
+                {
+                    ticket.Company = db.Companies.Find(ViewBag.TUser.Company.CompanyId);
+                }
+                else
+                {
+                    ticket.Company = db.Companies.Find(vm.SelectedCompanyId);
+                }
                 usuarioDb.Role = db.Roles.Find(vm.SelectedRoleId);
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -16,6 +16,7 @@ namespace SmartGarcom.ViewModels
             this.Companies = new List<SelectListItem>();
             this.Assets = new List<SelectListItem>();
             this.Roles = new List<SelectListItem>();
+            this.TUsers = new List<SelectListItem>();
         }
 
         [Display(Name = "Codigo do Usuario")]
@@ -43,12 +44,21 @@ namespace SmartGarcom.ViewModels
 
         public List<SelectListItem> Companies { get; set; }
         public List<SelectListItem> Assets { get; set; }
+        public List<SelectListItem> TUsers { get; set; }
 
         public List<SelectListItem> Roles { get; set; }
 
         [Display(Name = "Permissão")]
         [Required(ErrorMessage = "Informe a permissão do usuário")]
         public long SelectedRoleId { get; set; }
+
+        [Display(Name = "Ativo")]
+        [Required(ErrorMessage = "Selecione o Ativo")]
+        public long SelectedAssetId { get; set; }
+
+        [Display(Name = "Usuário")]
+        [Required(ErrorMessage = "Selecione o usuário")]
+        public long SelectedTUserId { get; set; }
 
         [Display(Name = "Empresa")]
         [Required(ErrorMessage = "Informe a empresa")]

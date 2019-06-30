@@ -39,12 +39,22 @@ namespace SmartGarcom.ViewModels
         public String Status { get; set; }
 
         [Display(Name = "Responsável")]
-        public String Responsavel { get; set; }
+        public List<SelectListItem> TUsers { get; set; }
+        public long SelectedUserId { get; set; }
 
-        [Display(Name = "Data de abertura")]
+        [Display(Name = "E-mail do Solicitante")]
+        public String EmailSolicitante { get; set; }
+
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Data de Abertura do Ticket")]
         public DateTime DataAbertura { get; set; }
 
-        [Display(Name = "Previsão de Conclusão")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [Required(ErrorMessage = "Informe a previsão de conclusão do Ticket")]
+        [Display(Name = "Previsão de conclusão do ticket")]
         public DateTime PrevisaoConclusao { get; set; }
 
         [Display(Name = "Descricao")]

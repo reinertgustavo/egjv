@@ -25,33 +25,33 @@
                             <option value="Fechado">Fechado</option>
                         </select>
                     </div>
-                    <label class="col-sm-2 control-label" asp-for="PrevisaoConclusao"></label>
+                    <label class="col-sm-2 control-label" asp-for="EmailSolicitante"></label>
                     <div class="col-sm-3">
-                        <input class="form-control" type="date" id="theDate" asp-for="PrevisaoConclusao" />
-                        <span class="text-danger" asp-validation-for="PrevisaoConclusao"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" asp-for="Responsavel"></label>
-                    <div class="col-sm-10">
-                        <input class="form-control" asp-for="Responsavel" />
-                        <span class="text-danger" asp-validation-for="Responsavel"></span>
+                        <input class="form-control" asp-for="EmailSolicitante" />
+                        <span class="text-danger" asp-validation-for="EmailSolicitante"></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Selecione o ativo</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-3">
                         <select class="form-control" asp-for="SelectedAssetId" asp-items="Model.Assets">
                             <option value="">Selecione uma opção</option>
                         </select>
                         <span class="text-danger" asp-validation-for="SelectedAssetId"></span>
+                    </div>
+                    <label class="col-sm-2 control-label">Selecione o responsável</label>
+                    <div class="col-sm-3">
+                        <select class="form-control" asp-for="SelectedUserId" asp-items="Model.TUsers">
+                            <option value="">Selecione uma opção</option>
+                        </select>
+                        <span class="text-danger" asp-validation-for="SelectedUserId"></span>
                     </div>
                 </div>
                 @if (ViewBag.TUser.Role.RoleId == 1)
                 {
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Selecione a empresa</label>
-                        <div class="col-sm-10">
+                        <div class="col-sm-6">
                             <select class="form-control" asp-for="SelectedCompanyId" asp-items="Model.Companies">
                                 <option value="">Selecione uma opção</option>
                             </select>
@@ -69,7 +69,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label" asp-for="Descricao"></label>
                     <div class="col-sm-6">
-                        <textarea class="form-control" rows="4" asp-for="Descricao"></textarea>
+                        <textarea class="form-control" rows="10" asp-for="Descricao"></textarea>
                         <span class="text-danger" asp-validation-for="Descricao"></span>
                     </div>
                 </div>

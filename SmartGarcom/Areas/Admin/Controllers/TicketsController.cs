@@ -41,7 +41,8 @@ namespace SmartGarcom.Areas.Admin.Controllers
             TicketVM vm = new TicketVM
             {
                 Companies = ListaComapany(),
-                Assets = ListaAsset()
+                Assets = ListaAsset(),
+                TUsers = ListaTUser()
             };
             return View(vm);
         }
@@ -52,24 +53,24 @@ namespace SmartGarcom.Areas.Admin.Controllers
             
             if (ModelState.IsValid)
             {
-                var currentUser = (TUser)ViewBag.TUser;
                 Ticket ticket = new Ticket
                 {
                     Name = vm.Name,
                     Assunto = vm.Assunto,
                     Descricao = vm.Descricao,
                     Status = vm.Status,
-                    Responsavel = vm.Responsavel,
+                    EmailSolicitante = vm.EmailSolicitante,
                     PrevisaoConclusao = vm.PrevisaoConclusao,
-                    Asset = db.Assets.Find(vm.SelectedAssetId)
+                    Asset = db.Assets.Find(vm.SelectedAssetId),
+                    TUser = db.TUsers.Find(vm.SelectedUserId)
                 };
-                if (currentUser.Role.RoleId == 1) 
+                if (ViewBag.TUser.Role.RoleId == 1) 
                 {
                     ticket.Company = db.Companies.Find(vm.SelectedCompanyId);
                 }
                 else
                 {
-                    ticket.Company = db.Companies.Find(currentUser.Company.CompanyId);
+                    ticket.Company = db.Companies.Find(ViewBag.TUser.Company.CompanyId);
                 }
                 ticket.DataAbertura = DateTime.Now;
                 this.db.Tickets.Add(ticket);
@@ -81,6 +82,7 @@ namespace SmartGarcom.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Edit(long Id)
         {
+            var currentUser = (TUser)ViewBag.TUser;
             Ticket ticket = this.db.Tickets
                                      .Where(x => x.TicketId == Id)
                                      .FirstOrDefault();
@@ -92,9 +94,17 @@ namespace SmartGarcom.Areas.Admin.Controllers
             TicketVM vm = new TicketVM
             {
                 TicketId = ticket.TicketId,
-                Name = ticket.Name,
                 Companies = ListaComapany(),
-                SelectedCompanyId = ticket.Company.CompanyId
+                Assets = ListaAsset(),
+                TUsers = ListaTUser(),
+                SelectedAssetId = ticket.Asset.AssetId,
+                SelectedUserId = ticket.TUser.TUserId,
+                SelectedCompanyId = ticket.Company.CompanyId,
+                Assunto = ticket.Assunto,
+                Descricao = ticket.Descricao,
+                Status = ticket.Status,
+                EmailSolicitante = ticket.EmailSolicitante,
+                PrevisaoConclusao = ticket.PrevisaoConclusao
             };
 
 
@@ -107,6 +117,13 @@ namespace SmartGarcom.Areas.Admin.Controllers
             {
                 Ticket ticket = this.db.Tickets.Find(Id);
                 ticket.Name = vm.Name;
+                ticket.Assunto = vm.Assunto;
+                ticket.Descricao = vm.Descricao;
+                ticket.Status = vm.Status;
+                ticket.EmailSolicitante = vm.EmailSolicitante;
+                ticket.PrevisaoConclusao = vm.PrevisaoConclusao;
+                ticket.Asset = db.Assets.Find(vm.SelectedAssetId);
+                ticket.TUser = db.TUsers.Find(vm.SelectedUserId);
                 ticket.Company = db.Companies.Find(vm.SelectedCompanyId);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -130,19 +147,12 @@ namespace SmartGarcom.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Delete(long id, Ticket asset)
+        public IActionResult Delete(long id, Ticket ticket)
         {
-            Ticket ticket = this.db.Tickets
+            Ticket ticketDb = this.db.Tickets
                                 .Where(x => x.TicketId == id)
                                 .FirstOrDefault();
-            if (ViewBag.TUser.Role.RoleId == 1 && ticket.IsDeleted == true)
-            {
-                db.Tickets.Remove(ticket);
-            }
-            else
-            {
-                asset.IsDeleted = true;
-            }
+            db.Tickets.Remove(ticketDb);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

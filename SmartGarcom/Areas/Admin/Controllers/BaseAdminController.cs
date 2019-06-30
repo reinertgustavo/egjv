@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using SmartGarcom.Filters;
 using SmartGarcom.Models;
 using SmartGarcom.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace SmartGarcom.Areas.Admin.Controllers
 {
@@ -53,6 +54,22 @@ namespace SmartGarcom.Areas.Admin.Controllers
                 });
             }
             return vm.Assets;
+        }
+
+        public List<SelectListItem> ListaTUser()
+        {
+            UserVM vm = new UserVM();
+            var currentUser = (TUser)ViewBag.TUser;
+            var tusers = db.TUsers.Include(x => x.Company).Where(x => x.Company.CompanyId == currentUser.Company.CompanyId).ToList();
+            foreach (var tuser in tusers)
+            {
+                vm.TUsers.Add(new SelectListItem
+                {
+                    Value = tuser.TUserId.ToString(),
+                    Text = tuser.Name
+                });
+            }
+            return vm.TUsers;
         }
         public String UploadImage(IFormFile formFile, string ctl_path , String CompanyName = null)
         {
