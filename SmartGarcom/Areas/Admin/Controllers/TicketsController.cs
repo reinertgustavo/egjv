@@ -11,25 +11,24 @@ using SmartGarcom.ViewModels;
 
 namespace SmartGarcom.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class TicketsController : BaseAdminController
     {
 
         public TicketsController(Banco db, IHostingEnvironment env) : base(db, env) { }
 
-        public IActionResult Index(int? SelectedCompany)
+        public IActionResult Index(int? SelectedCompany, int? SelectedAsset)
         {
             var currentUser = (TUser)ViewBag.TUser;
             if (currentUser.Role.RoleId == 1)
             {
-                var tickets = db.Tickets.ToList();
+                var tickets = db.Tickets.Include(x => x.Company).Include(x => x.Asset).IgnoreQueryFilters().ToList(); 
                 return View(tickets);
             }
             else if (currentUser.Role.RoleId == 2)
             {
                 var tickets = db.Tickets
-                .Include(x => x.Company)
-                .Where(x => x.Company.CompanyId == currentUser.Company.CompanyId)
-                .ToList();
+                .Include(x => x.Company).Where(x => x.Company.CompanyId == currentUser.Company.CompanyId).Include(x => x.Asset).ToList();
                 return View(tickets);
             }
             return View();
@@ -41,7 +40,8 @@ namespace SmartGarcom.Areas.Admin.Controllers
         {
             TicketVM vm = new TicketVM
             {
-                Companies = ListaComapany()
+                Companies = ListaComapany(),
+                Assets = ListaAsset()
             };
             return View(vm);
         }
@@ -53,7 +53,16 @@ namespace SmartGarcom.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 var currentUser = (TUser)ViewBag.TUser;
-                Ticket ticket = new Ticket();
+                Ticket ticket = new Ticket
+                {
+                    Name = vm.Name,
+                    Assunto = vm.Assunto,
+                    Descricao = vm.Descricao,
+                    Status = vm.Status,
+                    Responsavel = vm.Responsavel,
+                    PrevisaoConclusao = vm.PrevisaoConclusao,
+                    Asset = db.Assets.Find(vm.SelectedAssetId)
+                };
                 if (currentUser.Role.RoleId == 1) 
                 {
                     ticket.Company = db.Companies.Find(vm.SelectedCompanyId);
@@ -62,6 +71,7 @@ namespace SmartGarcom.Areas.Admin.Controllers
                 {
                     ticket.Company = db.Companies.Find(currentUser.Company.CompanyId);
                 }
+                ticket.DataAbertura = DateTime.Now;
                 this.db.Tickets.Add(ticket);
                 this.db.SaveChanges();
                 return RedirectToAction("Index");

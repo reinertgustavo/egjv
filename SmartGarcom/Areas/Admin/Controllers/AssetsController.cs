@@ -27,7 +27,7 @@ namespace SmartGarcom.Areas.Admin.Controllers
                     vm.AssetType.Add(new SelectListItem
                     {
                         Value = type.AssetTypeId.ToString(),
-                        Text = type.Name + " - " + type.Company.Name + " - " + type.IsDeleted
+                        Text = type.Name
                     });
                 }
             }

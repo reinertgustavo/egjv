@@ -40,6 +40,20 @@ namespace SmartGarcom.Areas.Admin.Controllers
             }
             return vm.Companies;
         }
+        public List<SelectListItem> ListaAsset()
+        {
+            UserVM vm = new UserVM();
+            var assets = db.Assets.ToList();
+            foreach (var asset in assets)
+            {
+                vm.Assets.Add(new SelectListItem
+                {
+                    Value = asset.AssetId.ToString(),
+                    Text = asset.Name
+                });
+            }
+            return vm.Assets;
+        }
         public String UploadImage(IFormFile formFile, string ctl_path , String CompanyName = null)
         {
             if (formFile != null && formFile.Length != 0)

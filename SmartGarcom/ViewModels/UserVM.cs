@@ -14,6 +14,7 @@ namespace SmartGarcom.ViewModels
         public UserVM()
         {
             this.Companies = new List<SelectListItem>();
+            this.Assets = new List<SelectListItem>();
             this.Roles = new List<SelectListItem>();
         }
 
@@ -41,6 +42,7 @@ namespace SmartGarcom.ViewModels
         public long PermissionId { get; set; }
 
         public List<SelectListItem> Companies { get; set; }
+        public List<SelectListItem> Assets { get; set; }
 
         public List<SelectListItem> Roles { get; set; }
 

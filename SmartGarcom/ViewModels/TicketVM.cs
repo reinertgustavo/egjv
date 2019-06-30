@@ -42,10 +42,10 @@ namespace SmartGarcom.ViewModels
         public String Responsavel { get; set; }
 
         [Display(Name = "Data de abertura")]
-        public String DataAbertura { get; set; }
+        public DateTime DataAbertura { get; set; }
 
         [Display(Name = "Previsão de Conclusão")]
-        public String PrevisaoConclusao { get; set; }
+        public DateTime PrevisaoConclusao { get; set; }
 
         [Display(Name = "Descricao")]
         public String Descricao { get; set; }

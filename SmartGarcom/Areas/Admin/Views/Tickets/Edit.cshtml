@@ -20,6 +20,17 @@
                 <span class="text-danger" asp-validation-for="Name"></span>
             </div>
         </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Status</label>
+            <div class="col-sm-10">
+                <select class="form-control" asp-for="Status">
+                    <option value="">Selecione uma opção</option>
+                    <option value="">Aberto</option>
+                    <option value="">Em progresso</option>
+                    <option value="">Fechado</option>
+                </select>
+            </div>
+        </div>
         @if (ViewBag.TUser.Role.RoleId == 1)
         {
             <div class="form-group">
