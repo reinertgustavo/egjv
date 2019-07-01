@@ -1,0 +1,107 @@
+﻿@model List<EGJV.Models.Company>
+@{
+    ViewData["Title"] = "Empresas";
+    ViewData["Controller"] = "Companies";
+    ViewData["Action"] = "Create";
+    ViewData["NomeBtn"] = "Cadastrar empresa";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <table class="table table-striped table-bordered dt-responsive nowrap" id="dataTables-Assets">
+            <thead>
+                <tr>
+                    
+                    <th class="text-center" width="10%">Codigo</th>
+                    <th>Nome</th>
+                    <th>CNPJ</th>
+                    <th>CEP</th>
+                    <th>Estado</th>
+                    <th>Cidade</th>
+                    <th></th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var company in Model)
+                {
+                <tr>
+
+                    <td class="text-center">@company.CompanyId</td>
+                    <td>@company.Name</td>
+                    <td>@company.Cnpj</td>
+                    <td>@company.ZipCode</td>
+                    <td>@company.State</td>
+                    <td>@company.City</td>
+                    @if(company.IsDeleted == true)
+                    {
+                        <td>Deletado</td>
+                    }
+                    else
+                    {
+                        <td>Ativo</td>
+                    }
+                    <td width="10%">
+                        <a class="btn btn-primary glyphicon glyphicon-pencil" asp-area="Admin" asp-controller="Companies" asp-action="Edit" asp-route-id="@company.CompanyId"></a>
+                        <a class="btn btn-danger glyphicon glyphicon-trash" asp-area="Admin" asp-controller="Companies" asp-action="Delete" asp-route-id="@company.CompanyId"></a>
+                    </td>
+
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- /.row -->
+
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#dataTables-Assets').DataTable({
+                lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                dom: "<'row'<'col-sm-4 hidden-xs'l><'col-sm-4 hidden-xs'B><'col-sm-4'f>> " +
+                    "<'row'<'col-sm-12'tr>>" +
+                    "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+
+                buttons: [
+                    {
+                        extend: 'copyHtml5',
+                        text: '<i class="fa fa-files-o"></i>',
+                        titleAttr: 'Copiar',
+                        exportOptions: {
+                            columns: ':visible'
+                        },
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        text: '<i class="fa fa-file-excel-o"></i>',
+                        titleAttr: 'Excel',
+                        exportOptions: {
+                            columns: ':visible'
+                        },
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        titleAttr: 'PDF',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'colvis',
+                        text: 'Selecionar Colunas'
+
+                    }
+
+                ],
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Portuguese-Brasil.json"
+                },
+                colReorder: true
+
+            });
+        });
+    </script>
+
+}

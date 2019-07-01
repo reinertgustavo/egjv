@@ -1,0 +1,109 @@
+@model EGJV.ViewModels.TicketVM
+
+@{
+    ViewData["Title"] = "Abrir Ticket";
+}
+
+<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+            ×
+        </button>
+        <h4 class="modal-title">Abrir Ticket</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <form asp-controller="Tickets" asp-action="Create" method="post" class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Status</label>
+                    <div class="col-sm-3">
+                        <select class="form-control" asp-for="Status">
+                            <option value="">Selecione uma opção</option>
+                            <option value="Novo">Novo</option>
+                            <option value="Aberto">Aberto</option>
+                            <option value="Em progresso">Em progresso</option>
+                            <option value="Fechado">Fechado</option>
+                        </select>
+                    </div>
+                    <label class="col-sm-2 control-label" asp-for="EmailSolicitante"></label>
+                    <div class="col-sm-3">
+                        <input class="form-control" asp-for="EmailSolicitante" />
+                        <span class="text-danger" asp-validation-for="EmailSolicitante"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Selecione o ativo</label>
+                    <div class="col-sm-3">
+                        <select class="form-control" asp-for="SelectedAssetId" asp-items="Model.Assets">
+                            <option value="">Selecione uma opção</option>
+                        </select>
+                        <span class="text-danger" asp-validation-for="SelectedAssetId"></span>
+                    </div>
+                    <label class="col-sm-2 control-label">Selecione o responsável</label>
+                    <div class="col-sm-3">
+                        <select class="form-control" asp-for="SelectedUserId" asp-items="Model.TUsers">
+                            <option value="">Selecione uma opção</option>
+                        </select>
+                        <span class="text-danger" asp-validation-for="SelectedUserId"></span>
+                    </div>
+                </div>
+                @if (ViewBag.TUser.Role.RoleId == 1)
+                {
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Selecione a empresa</label>
+                        <div class="col-sm-6">
+                            <select class="form-control" asp-for="SelectedCompanyId" asp-items="Model.Companies">
+                                <option value="">Selecione uma opção</option>
+                            </select>
+                            <span class="text-danger" asp-validation-for="SelectedCompanyId"></span>
+                        </div>
+                    </div>
+                }
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" asp-for="Assunto"></label>
+                    <div class="col-sm-6">
+                        <input class="form-control" asp-for="Assunto" />
+                        <span class="text-danger" asp-validation-for="Assunto"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" asp-for="Descricao"></label>
+                    <div class="col-sm-6">
+                        <textarea class="form-control" rows="10" asp-for="Descricao"></textarea>
+                        <span class="text-danger" asp-validation-for="Descricao"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <a asp-controller="Tickets"
+                           asp-action="Index"
+                           class="btn btn-default">Cancelar</a>
+                        <button type="submit"
+                                class="btn btn-success">
+                            Salvar
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var date = new Date();
+
+            var day = date.getDate();
+            var month = date.getMonth() + 1;
+            var year = date.getFullYear();
+
+            if (month < 10) month = "0" + month;
+            if (day < 10) day = "0" + day;
+
+            var today = year + "-" + month + "-" + day;       
+            $("#theDate").attr("value", today);
+        });
+    </script>
+
+}

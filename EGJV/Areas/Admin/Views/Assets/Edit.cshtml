@@ -1,0 +1,68 @@
+﻿@model EGJV.ViewModels.AssetVM
+@{
+}
+<div class="row">
+    <form asp-controller="Assets" asp-action="Edit" method="post" class="form-horizontal">
+        <div class="form-group">
+            <label class="col-sm-2 control-label" asp-for="AssetId"></label>
+            <div class="col-sm-10">
+                <input class="form-control" asp-for="AssetId" />
+                <span class="text-danger" asp-validation-for="AssetId"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" asp-for="Name"></label>
+            <div class="col-sm-10">
+                <input class="form-control" asp-for="Name" />
+                <span class="text-danger" asp-validation-for="Name"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label" asp-for="Description"></label>
+            <div class="col-sm-10">
+                <input class="form-control" asp-for="Description" />
+                <span class="text-danger" asp-validation-for="Description"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" asp-for="Price"></label>
+            <div class="col-sm-10">
+                <input class="form-control" asp-for="Price" />
+                <span class="text-danger" asp-validation-for="Price"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" asp-for="SelectedProductCategoryId"></label>
+            <div class="col-sm-10">
+                <select class="form-control" asp-for="SelectedProductCategoryId" asp-items="Model.AssetType">
+                    <option value="">Selecione uma opção</option>
+                </select>
+                <span class="text-danger" asp-validation-for="SelectedProductCategoryId"></span>
+            </div>
+        </div>
+        @if (ViewBag.TUser.Role.RoleId == 1)
+        {
+            <div class="form-group">
+                <label class="col-sm-2 control-label" asp-for="SelectedCompanyId"></label>
+                <div class="col-sm-10">
+                    <select class="form-control" asp-for="SelectedCompanyId" asp-items="Model.Companies">
+                        <option value="">Selecione uma opção</option>
+                    </select>
+                    <span class="text-danger" asp-validation-for="SelectedCompanyId"></span>
+                </div>
+            </div>
+        }
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <a asp-controller="Assets"
+                   asp-action="Index"
+                   class="btn btn-default">Cancelar</a>
+                <button type="submit"
+                        class="btn btn-success">
+                    Salvar
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
