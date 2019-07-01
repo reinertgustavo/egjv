@@ -23,10 +23,12 @@ namespace SmartGarcom.Areas.Admin.Controllers
                 TUsers = ListaTUser(),
                 Tickets = ListaTicket(),
                 TicketsAbertos = ListaTicketAberto(),
-                TicketsAtrasados = ListaTicketAtrasado()
+                TicketsAtrasados = ListaTicketAtrasado(),
+                TicketsFechados = ListaTicketFechado(),
             };
             ViewBag.TicketsAbertos = vm.TicketsAbertos.Count;
             ViewBag.TicketsAtrasados = vm.TicketsAtrasados.Count;
+            ViewBag.TicketsFechados = vm.TicketsFechados.Count;
             return View();
         }
     }

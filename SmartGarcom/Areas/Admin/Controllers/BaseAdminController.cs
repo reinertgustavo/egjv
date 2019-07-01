@@ -101,6 +101,21 @@ namespace SmartGarcom.Areas.Admin.Controllers
             }
             return vm.Tickets;
         }
+        public List<SelectListItem> ListaTicketFechado()
+        {
+            TicketVM vm = new TicketVM();
+            var currentUser = (TUser)ViewBag.TUser;
+            var tickets = db.Tickets.Include(x => x.Company).Where(x => x.Company.CompanyId == currentUser.Company.CompanyId).Where(d => d.Status == "Fechado").ToList();
+            foreach (var ticket in tickets)
+            {
+                vm.Tickets.Add(new SelectListItem
+                {
+                    Value = ticket.TicketId.ToString(),
+                    Text = ticket.Name
+                });
+            }
+            return vm.Tickets;
+        }
         public List<SelectListItem> ListaTicketAtrasado()
         {
             TicketVM vm = new TicketVM();

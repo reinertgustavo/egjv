@@ -22,6 +22,7 @@ namespace SmartGarcom.ViewModels
         public List<SelectListItem> Tickets { get; set; }
         public List<SelectListItem> TicketsAbertos { get; set; }
         public List<SelectListItem> TicketsAtrasados { get; set; }
+        public List<SelectListItem> TicketsFechados { get; set; }
         public long SelectedTicketId { get; set; }
         public long SelectedCompanyId { get; set; }
 
